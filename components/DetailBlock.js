@@ -9,7 +9,7 @@ import RadioThree from '../components/RadioThree';
 function DetailBlock (){
 
     return (
-      <div className="bg-white rounded-xl shadow-md overflow-hidden m-2 mx-1 h-full ">
+      <div className="bg-white rounded-md shadow-md overflow-hidden m-2 mx-1 h-full ">
         <h1 className='m-4 flex justify-center font-bold'>Team Details</h1>
         <div className='p-2'>
           <h2>Direction</h2>

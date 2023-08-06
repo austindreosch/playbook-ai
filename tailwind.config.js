@@ -19,7 +19,7 @@ module.exports = {
         'mdlg': "896px",
       },
       fontSize: {
-        '2xs': '.625rem',
+        '2xs': '.725rem',
       },
       fontFamily: {
         // logohead: ['var(--font-sen)'],

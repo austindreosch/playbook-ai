@@ -5,7 +5,7 @@ import React from 'react';
 function HubBlock (){
 
   return (
-    <div className="col-span-2 bg-white rounded-xl font-bold shadow-sm overflow-hidden mt-2 mx-2 p-4 h-full">
+    <div className="col-span-2 text-white bg-myblue rounded-md font-bold shadow-sm overflow-hidden mt-2 mx-2 p-4 h-full">
       <span className='px-2'>League Name</span>
       <span className='px-2'>Trade Machine</span>
       <span className='px-2'>Update Rosters</span>
