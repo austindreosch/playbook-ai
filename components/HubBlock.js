@@ -5,12 +5,12 @@ import React from 'react';
 function HubBlock (){
 
   return (
-    <div className="col-span-2 bg-white rounded-xl shadow-md overflow-hidden m-2 h-full">
-      <h2>League Name</h2>
-      <h2>Trade Machine</h2>
-      <h2>Update Rosters</h2>
-      <h2>Standings</h2>
-      <h2>Settings</h2>
+    <div className="col-span-2 bg-white rounded-xl font-bold shadow-sm overflow-hidden mt-2 mx-2 p-4 h-full">
+      <span className='px-2'>League Name</span>
+      <span className='px-2'>Trade Machine</span>
+      <span className='px-2'>Update Rosters</span>
+      <span className='px-2'>Standings</span>
+      <span className='px-2'>Settings</span>
     </div>
   )
 }

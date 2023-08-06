@@ -10,16 +10,21 @@ import RosterBlock from "../components/RosterBlock";
 
 
 import { Sen } from 'next/font/google';
-const sen = Sen({
+const oldFont = Sen({
   weight: '700',
   subsets: ['latin'],
   display: 'swap',
 })
 
+import { Oxanium } from 'next/font/google';
+const logoFont = Oxanium({
+  weight: '600',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 
 export default function Home() {
-
   const players = [
     { playerscore: 98, standardscore: 95, image: 'https://fantraximg.com/si/headshots/NBA/hs0011e_96_6.png', dynastyRank: 86, name: 'LeBron James', position: 'SF', team: 'LAL', age: 36, fgPercent: '50.4%', threePM: 2.3, ftPercent: '69.8%', pts: 25, reb: 8.2, ast: 8.6, st: 1.3, blk: 1.1, to: 3.2 },
     { playerscore: 96, standardscore: 94, image: 'https://fantraximg.com/si/headshots/NBA/hs001aw_96_6.png', dynastyRank: 42, name: 'Kevin Durant', position: 'SF', team: 'BKN', age: 33, fgPercent: '52.8%', threePM: 2.5, ftPercent: '88.2%', pts: 27, reb: 7, ast: 5, st: 0.7, blk: 1.3, to: 3.1 },
@@ -38,50 +43,53 @@ export default function Home() {
     { playerscore: 79, standardscore: 77, image: 'https://fantraximg.com/si/headshots/NBA/hs03lg1_96_6.png', dynastyRank: 68, name: 'Ben Simmons', position: 'PG', team: 'PHI', age: 25, fgPercent: '55.7%', threePM: 0.1, ftPercent: '61.3%', pts: 14, reb: 7, ast: 7, st: 1.6, blk: 0.6, to: 3.5 },
   ];
   
-  
-
-
-
-
   return (
 
 
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-200">
       <nav className="bg-myyelloworange shadow-md">
         <div className="max-w-[83rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <a href="#" className="text-black hover:text-white px-3 py-2">
-                <div className={`${sen.className} text-3xl font-bold`}>playbook </div>
+                <div className={`${logoFont.className} text-3xl font-bold`}>playbook</div>
               </a>
-
+              <span className={`${oldFont.className} text-sm font-bold mt-1`}> fantasy sports toolkit</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Features</a>
-                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
-                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Home</a>
+                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Features</a>
+                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Pricing</a>
+                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Contact</a>
               </div>
             </div>
           </div>
         </div>
       </nav>
       
-      <header className="bg-gray-50 text-center py-1">
+      <header className="bg-gray-200 text-center">
+        <HubBlock />
       </header>
 
-      <main className="grid grid-cols-12">
-        <div className="col-span-2">
-          <HubBlock/>
-        </div>
-        <div className="col-span-7">
+      <main className="grid lg:grid-cols-12 gap-y-2 mx-1">
+        {/* First RosterBlock */}
+        <div className="lg:col-span-5 col-span-full">
           <RosterBlock players={players} />
         </div>
-        <div className="col-span-3">
+
+        {/* Second RosterBlock */}
+        <div className="lg:col-span-5 col-span-full">
+          <RosterBlock players={players} />
+        </div>
+
+        {/* DetailBlock */}
+        <div className="lg:col-span-2 col-span-full">
           <DetailBlock />
         </div>
       </main>
+
+
 
       <footer className="bg-white">
         <div className="max-w-8xl mx-auto py-8 px-4 mt-4 sm:px-3 lg:px-5">
