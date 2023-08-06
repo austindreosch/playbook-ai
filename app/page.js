@@ -3,6 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from 'next/image';
 
+import DetailBlock from "../components/DetailBlock";
+import HubBlock from "../components/HubBlock";
+import RosterBlock from "../components/RosterBlock";
+
+
+
+import { Sen } from 'next/font/google';
+const sen = Sen({
+  weight: '700',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+
+
 export default function Home() {
 
   const players = [
@@ -32,22 +47,21 @@ export default function Home() {
 
 
     <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="bg-myyelloworange shadow-md">
+        <div className="max-w-[83rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <a href="#" className="text-gray-700 hover:text-gray-900 px-3 py-2">
-                <div className="text-2xl font-bold">Playbook</div>
-                
+              <a href="#" className="text-black hover:text-white px-3 py-2">
+                <div className={`${sen.className} text-3xl font-bold`}>playbook </div>
               </a>
 
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                <a href="#" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Features</a>
-                <a href="#" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
-                <a href="#" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pricing</a>
+                <a href="#" className="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
               </div>
             </div>
           </div>
@@ -57,89 +71,20 @@ export default function Home() {
       <header className="bg-gray-50 text-center py-1">
       </header>
 
-      <main className="grid grid-cols-10">
-
-        <div className="col-span-2 bg-white rounded-xl shadow-md overflow-hidden p-4 m-2">
-          <h2>League Name</h2>
-          <h2>Trade Machine</h2>
-          <h2>Update Rosters</h2>
-          <h2>Standings</h2>
-          <h2>Settings</h2>
+      <main className="grid grid-cols-12">
+        <div className="col-span-2">
+          <HubBlock/>
         </div>
-
-        <div className="col-span-6 bg-white rounded-xl shadow-md overflow-hidden p-4 m-2">
-          <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-4">Your Roster</h2>
-          <table className="min-w-full bg-white">
-            <thead className="bg-gray-600 text-white text-xs rounded-lg">
-              <tr className="">
-                <th className="w-1/16 py-2"></th>
-                <th className="w-1/16 ">Score</th>
-                <th className="w-1/16"></th>
-                <th className="w-1/16"></th>
-                <th className="w-1/12 text-left"></th>
-                <th className="w-1/16 text-center">Age</th>
-                <th className="w-1/16 text-center">FG%</th>
-                <th className="w-1/16 text-center">3PM</th>
-                <th className="w-1/16 text-center">FT%</th>
-                <th className="w-1/16 text-center">PTS</th>
-                <th className="w-1/16 text-center">REB</th>
-                <th className="w-1/16 text-center">AST</th>
-                <th className="w-1/16 text-center">ST</th>
-                <th className="w-1/16 text-center">BLK</th>
-                <th className="w-1/16 text-center">TO</th>
-                <th className="w-1/16 "></th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {players.map((player, index) => (
-                <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-1 px-1 text-center">#{player.dynastyRank}</td>
-                  <td className="py-1 px-1 text-center font-bold text-orange-300"><strong>{player.playerscore}</strong></td>
-                  <td className="py-1 px-1 text-center">{player.standardscore}</td>
-                  
-                  <td className="py-1 px-1 flex items-center justify-center">
-                    <div className="h-8 w-8 inline-flex items-center justify-center">
-                      <img className='bg-gray-200 rounded-lg' src={player.image} alt="" />
-                    </div>
-                  </td>
-
-                  <td className="leading-tight text-left truncate">
-                    <div>
-                      <b>{player.name}</b>
-                    </div>
-                    <div className=' text-2xs'>
-                      {player.position}  ·  {player.team}
-                    </div>
-                  </td>
-                  <td className="py-1 px-1 text-center">{player.age}</td>
-                  <td className="py-1 text-center">{player.fgPercent}</td>
-                  <td className="py-1 px-1 text-center">{player.threePM}</td>
-                  <td className="py-1 text-center">{player.ftPercent}</td>
-                  <td className="py-1 px-1 text-center">{player.pts}</td>
-                  <td className="py-1 px-1 text-center">{player.reb}</td>
-                  <td className="py-1 px-1 text-center">{player.ast}</td>
-                  <td className="py-1 px-1 text-center">{player.st}</td>
-                  <td className="py-1 px-1 text-center">{player.blk}</td>
-                  <td className="py-1 px-1 text-center">{player.to}</td>
-                  <td className=" text-center">
-                  <div className="h-6 w-6 inline-flex items-center justify-center">
-                    <FontAwesomeIcon icon={faSliders} className="text-blue-300 text-sm mt-2 p-1" />
-                  </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="col-span-7">
+          <RosterBlock players={players} />
         </div>
-
-        <div className="col-span-2 bg-white rounded-xl shadow-md overflow-hidden p-4 m-2">
-          <h2>Highlighted Player</h2>
+        <div className="col-span-3">
+          <DetailBlock />
         </div>
-
       </main>
 
       <footer className="bg-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto py-8 px-4 mt-4 sm:px-3 lg:px-5">
           <p className="text-center text-base leading-6 text-gray-400">
             &copy; {new Date().getFullYear()} Playbook, Inc. All rights reserved.
           </p>

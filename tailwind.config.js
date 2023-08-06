@@ -15,6 +15,22 @@ module.exports = {
       fontSize: {
         '2xs': '.625rem',
       },
+      fontFamily: {
+        // logohead: ['var(--font-sen)'],
+      },
+      colors: {
+        myblue: '#3C91E6',
+        myorange: '#F5BB00',
+        myyelloworange: '#FFD166',
+        myyellow: '#FFEE88',
+        mybrightorange: '#FE9000',
+        mybrightyellow: '#FFDD4A',
+        mylightblue: '#5ADBFF',
+        mymidblue: '#3C6997',
+        mydarkblue: '#094074',
+        mybiege: '#E6C79C',
+
+      }
     },
   },
   plugins: [],
