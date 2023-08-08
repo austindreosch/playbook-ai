@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getTeamsWithPlayerIds } from '../utilities/fantraxAPI';
+import { getTeamsWithPlayers } from '../utilities/fantraxAPI';
 
 const RosterViewer = ({ leagueId }) => {
   const [teamsData, setTeamsData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getTeamsWithPlayerIds(leagueId);
+      const data = await getTeamsWithPlayers(leagueId);
       setTeamsData(data);
     };
 
@@ -18,10 +18,12 @@ const RosterViewer = ({ leagueId }) => {
       {teamsData ? (
         Object.keys(teamsData).map((teamId) => (
           <div key={teamId} className="teamData">
-            <h2>{teamsData[teamId].teamName}</h2>
+            <b>{teamsData[teamId].teamName}</b>
             <ul>
-              {teamsData[teamId].playerIds.map((playerId) => (
-                <li key={playerId}>{playerId}</li>
+              {Object.keys(teamsData[teamId].players).map((playerId) => (
+                <li key={playerId}>
+                  {teamsData[teamId].players[playerId]}
+                </li>
               ))}
             </ul>
           </div>
