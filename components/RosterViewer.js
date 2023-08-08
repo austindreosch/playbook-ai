@@ -20,9 +20,9 @@ const RosterViewer = ({ leagueId }) => {
           <div key={teamId} className="teamData">
             <b>{teamsData[teamId].teamName}</b>
             <ul>
-              {Object.keys(teamsData[teamId].players).map((playerId) => (
-                <li key={playerId}>
-                  {teamsData[teamId].players[playerId]}
+              {Object.values(teamsData[teamId].players).map((player) => (
+                <li key={player.fantraxId}>
+                  {player.name} • {player.position} • {player.team}
                 </li>
               ))}
             </ul>
@@ -36,3 +36,29 @@ const RosterViewer = ({ leagueId }) => {
 }
 
 export default RosterViewer;
+
+
+
+// {
+//     "team001": {
+//       "teamName": "Golden State Warriors",
+//       "players": {
+//         "03xmv": {
+//           "name": "Stephen Curry",
+//           "position": "PG",
+//           "team"    : "GSW",
+//           "fantraxId": "03xmv",
+//           "statsIncId": 1035,
+//           "rotowireId": 3035,
+//         },
+//         "04xkv": {
+//             "name": "Draymond Green",
+//             "position": "PF",
+//             "team"    : "GSW",
+//             "fantraxId": "04xkv",
+//             "statsIncId": 1036,
+//             "rotowireId": 3036,
+//         },
+//       }
+//     },
+// }
