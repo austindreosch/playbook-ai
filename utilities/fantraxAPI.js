@@ -35,12 +35,9 @@ export const getTeamsWithPlayers = async (leagueId) => {
       axios.get(retrieveRostersURL),
       axios.get(playerDataURL)
     ]);
-
-    // Extract the necessary data from the API responses
     const rostersData = rostersResponse.data;
     const playerDataMap = playerDataResponse.data;
 
-    // Prepare an object to store the processed data
     const processedData = {};
 
     // Process data for each team and their respective players
@@ -71,16 +68,11 @@ export const getTeamsWithPlayers = async (leagueId) => {
       };
     }
 
-    // Output the processed data to the console for debugging or verification purposes
     console.log(processedData);
-
-    // Return the processed data
     return processedData;
 
   } catch (error) {
-    // Log any errors that occur during the data retrieval or processing
     console.error("Error fetching and processing league data:", error);
-    // Return null to indicate that an error occurred
     return null;
   }
 }

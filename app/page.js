@@ -75,12 +75,12 @@ export default function Home() {
       <main className="grid lg:grid-cols-12 gap-y-2 mx-1">
         {/* First RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock players={players} roster="My Roster" />
+          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="My Roster" />
         </div>
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock players={players} roster="Opposing Roster" />
+          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" />
         </div>
 
         {/* DetailBlock */}
