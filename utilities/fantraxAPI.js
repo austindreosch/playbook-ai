@@ -78,3 +78,64 @@ export const getTeamsWithPlayers = async (leagueId) => {
 }
 
 
+
+
+
+// get all players in the league
+export const getAllPlayers = async (leagueId) => {
+
+}
+
+
+
+{ leagueInfo: {
+    leagueId: string,
+    teams: [
+      teamId1: {
+        teamName: string,
+        players: [
+          {
+            teamName: string,
+            players: [
+              {
+                fantraxId: string,
+                name: string,
+                position: string,
+                team: string,
+                rotowireId: number,
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    waiverPlayers: [
+      // enter each player that isnt on a roster, and doesnt have N/A for their NBA team
+      {
+        fantraxId: string,
+        name: string,
+        position: string,
+        team: string,
+        rotowireId: number,
+      }
+    ]
+  }
+}
+  
+
+
+  
+//   teamId: {
+//     teamName: string,
+//     players: [
+//       {
+//         fantraxId: string,
+//         name: string,
+//         position: string,
+//         team: string,
+//         statsIncId: number,
+//         rotowireId: number,
+//       },
+//     ],
+//   },
+// }

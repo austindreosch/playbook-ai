@@ -7,6 +7,8 @@ import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
 
+import TestBlock from "../components/test/TestBlock";
+
 
 
 import { Sen } from 'next/font/google';
@@ -80,7 +82,8 @@ export default function Home() {
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" />
+          {/* <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" /> */}
+          <TestBlock />
         </div>
 
         {/* DetailBlock */}
@@ -93,6 +96,9 @@ export default function Home() {
 
       <footer className="bg-white">
         <div className="max-w-8xl mx-auto py-8 px-4 mt-4 sm:px-3 lg:px-5">
+          <p className="text-center text-base leading-6 text-gray-400">
+            At the moment, all functionality is built around category leagues. Points leagues are much less complex strategically, so alot of this will be less useful - but we will be adding different functionality for points leagues in the future.
+          </p>
           <p className="text-center text-base leading-6 text-gray-400">
             &copy; {new Date().getFullYear()} Playbook, Inc. All rights reserved.
           </p>
