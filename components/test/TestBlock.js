@@ -5,54 +5,42 @@ import { getLeagueData } from 'utilities/fantraxAPI'; // Import your API functio
 
 const TestBlock = () => {
   const [leagueData, setLeagueData] = useState(null);
+  const [userTeam, setUserTeam] = useState(null);
 
   useEffect(() => {
-    // Call your API function to fetch the league data
     const fetchData = async () => {
-      const leagueId = "4fzl7g0gljax6594"; // Replace with your actual league ID
-      const userTeamId = "u6v64wyeljax65ae"; // Replace with your actual user team ID
-      const leagueName = "Franchise Mode"; // Replace with your actual league name
+      const leagueId = "4fzl7g0gljax6594"; 
+      const userTeamId = "u6v64wyeljax65ae"; 
+      const leagueName = "Franchise Mode"; 
 
       const data = await getLeagueData(leagueId, userTeamId, leagueName);
       setLeagueData(data);
+
+      // Find and set the user team
+      const foundUserTeam = data.teams.find(team => team.teamId === userTeamId);
+      setUserTeam(foundUserTeam);
     };
 
     fetchData();
   }, []);
 
-  if (!leagueData) {
+  if (!userTeam) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="">
       {/* Display the league data */}
-      <h1>League Data</h1>
+      <h1>{leagueData.leagueName}</h1>
       <p>League ID: {leagueData.leagueId}</p>
-      <p>User Team ID: {leagueData.userTeamId}</p>
-      <p>League Name: {leagueData.leagueName}</p>
+      <p>Your Team ID: {leagueData.userTeamId}</p>
 
-      {/* Display teams and their players */}
-      <h2>Teams and Players</h2>
-      {leagueData.teams.map((team) => (
-        <div key={team.teamId}>
-          <b>{team.teamName}</b>
-          <ul>
-            {team.players.map((player) => (
-              <li key={player.fantraxId}>
-                {player.name} - {player.position} - {player.team}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-
-      {/* Display waiver players */}
-      <b>Waiver Players</b>
+      {/* Display your team's players */}
+      <b>{userTeam.teamName}</b>
       <ul>
-        {leagueData.waiverPlayers.map((player) => (
+        {userTeam.players.map((player) => (
           <li key={player.fantraxId}>
-            {player.name} - {player.position} - {player.team}
+            {player.name} - {player.position} - {player.team} ({player.fantraxId})
           </li>
         ))}
       </ul>

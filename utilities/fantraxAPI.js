@@ -44,10 +44,16 @@ import axios from 'axios';
 
 export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
+  const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
   
   try {
-    const rostersResponse = await axios.get(retrieveRostersURL);
+    const [rostersResponse, playerDataResponse] = await Promise.all([
+      axios.get(retrieveRostersURL),
+      axios.get(playerDataURL)
+    ]);
+
     const rostersData = rostersResponse.data;
+    const playerDataMap = playerDataResponse.data;
 
     const leagueData = {
       leagueId: leagueId,
@@ -57,25 +63,30 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
       teams: [],
       waiverPlayers: []
     };
-
-    leagueData.waiverPlayers = await getWaivers(leagueId);
-    leagueData.leagueInfo = await getLeagueInfo(leagueId);
+    
+    leagueData.waiverPlayers = await getWaivers(leagueId); //array with unrostered players
+    leagueData.leagueInfo = await getLeagueInfo(leagueId); //object with roster size, active roster size, scoring system etc
 
     for (let teamId in rostersData) {
       const teamData = rostersData[teamId];
       const players = [];
 
 
-      console.log(teamData.rosterInfo[0]);
       // If rosterItems contains player details directly:
       teamData.rosterItems.forEach(item => {
-        players.push({
-          fantraxId: item.fantraxId,
-          name: item.name,
-          position: item.position,
-          team: item.team,
-          rotowireId: item.rotowireId,
-        });
+        const playerData = playerDataMap[item.id];
+        if (playerData) {
+          const cleanedName = playerData.name.split(', ').reverse().join(' ');
+          // Create a simplified player object and add it to the players array
+          players.push({
+            fantraxId: playerData.fantraxId,
+            name: cleanedName,
+            position: playerData.position,
+            team: playerData.team,
+            statsIncId: playerData.statsIncId,
+            rotowireId: playerData.rotowireId,
+          });
+        }
       });
 
       leagueData.teams.push({
@@ -110,7 +121,7 @@ export const getWaivers = async (leagueId) => {
 
     for (let playerId in playerDataMap) {
       const playerDataItem = playerDataMap[playerId]; // Change variable name to avoid conflict
-      if (playerDataItem.team !== "(N/A)") {
+      if (playerDataItem.team !== "(N/A)" && playerDataItem.team !== "Tm") {
         waiverPlayers.push({
           fantraxId: playerDataItem.fantraxId,
           name: playerDataItem.name,
