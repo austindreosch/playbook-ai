@@ -1,13 +1,10 @@
-import { faDumbbell, faGear, faScaleUnbalancedFlip, faSliders, faWeightHanging, faWeightScale } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import Image from 'next/image';
-
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
 
 import TestBlock from "../components/test/TestBlock";
+
+import Link from "next/link";
 
 
 
@@ -27,6 +24,8 @@ const logoFont = Oxanium({
 
 
 export default function Home() {
+  
+  
   const players = [
     { playerscore: 98, standardscore: 95, image: 'https://fantraximg.com/si/headshots/NBA/hs0011e_96_6.png', dynastyRank: 86, name: 'LeBron James', position: 'SF', team: 'LAL', age: 36, fgPercent: '50.4%', threePM: 2.3, ftPercent: '69.8%', pts: 25, reb: 8.2, ast: 8.6, st: 1.3, blk: 1.1, to: 3.2 },
     { playerscore: 96, standardscore: 94, image: 'https://fantraximg.com/si/headshots/NBA/hs001aw_96_6.png', dynastyRank: 42, name: 'Kevin Durant', position: 'SF', team: 'BKN', age: 33, fgPercent: '52.8%', threePM: 2.5, ftPercent: '88.2%', pts: 27, reb: 7, ast: 5, st: 0.7, blk: 1.3, to: 3.1 },
@@ -63,6 +62,7 @@ export default function Home() {
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Home</a>
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Features</a>
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Pricing</a>
+                <Link href="/about" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>About</Link>
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Contact</a>
               </div>
             </div>
@@ -71,6 +71,7 @@ export default function Home() {
       </nav>
       
       <header className="bg-gray-200 text-center">
+        <a href="/api/auth/login">Login</a>
         <HubBlock />
       </header>
 
