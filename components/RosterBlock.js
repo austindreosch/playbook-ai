@@ -191,12 +191,13 @@ function RosterBlock({ players, roster }) {
                                     </div>
                                 </div>
 
-                                <div className='col-span-5  bg-white pt-[.4rem] px-2 ml-2 mr-1 rounded-lg  border border-gray-200 shadow-sm mb-1 '>
-                                    <p>age: {player.age}</p>
-                                    <p>mpg: 32.1</p>
-                                    <p>last 60: #47</p>
-                                    <p>last 2YR: #63</p>
-                                    <p>contract: 3 years</p>
+                                <div className='col-span-5  bg-white pt-[.4rem] px-2 ml-2 mr-1 rounded-lg  border border-gray-200 shadow-sm mb-1 grid grid-flow-col '>
+                                    <div>
+                                        <p>age: {player.age}</p>
+                                        <p>mpg: 32.1</p>
+                                        <p>contract: 3 years</p>
+                                    </div>
+                                    <div className='h-full'><img src={player.image} alt="" /></div>
                                 </div>
                             </div>
                         </div>
