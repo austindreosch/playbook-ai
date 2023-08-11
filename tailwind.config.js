@@ -8,6 +8,13 @@ module.exports = {
   plugins: [require("daisyui")],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        // Add additional column definitions
+        13: 'repeat(13, minmax(0, 1fr))',
+        14: 'repeat(14, minmax(0, 1fr))',
+        15: 'repeat(15, minmax(0, 1fr))',
+        16: 'repeat(16, minmax(0, 1fr))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -16,16 +23,19 @@ module.exports = {
       screens: {
         'xs': "475px",
         '2xs': "375px",
+        '3xs': "275px",
         'mdlg': "896px",
       },
       fontSize: {
         '2xs': '.725rem',
+        '3xs': '.600rem',
       },
       fontFamily: {
         // logohead: ['var(--font-sen)'],
       },
       colors: {
-        myblue: '#3C91E6',
+        myblue: '#36A2EB',
+        myotherblue: '#3C91E6',
         myorange: '#FFBA08',
         myyelloworange: '#FFD166',
         myyellow: '#FFEE88',

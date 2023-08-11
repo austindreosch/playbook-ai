@@ -2,8 +2,8 @@
 
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import RankCircle from "../components/RankCircle";
+import React, { createRef, useRef, useState } from 'react';
+import RankDonut from '../components/RankDonut';
 
 function getColorForStat(value, average) {
     // Define weights (ranges) inside the function
@@ -36,13 +36,12 @@ function getColorForTO(value, average) {
 
 
 function RosterBlock({ players, roster }) {
-
-    const [collapsed, setCollapsed] = useState(players.map(() => true));  // Each player starts as collapsed
-
+    const [collapsed, setCollapsed] = useState(players.map(() => true)); // Each player starts as collapsed
+    
     const toggleCollapse = (index) => {
-        const newCollapsed = [...collapsed];
-        newCollapsed[index] = !newCollapsed[index];
-        setCollapsed(newCollapsed);
+      const newCollapsed = [...collapsed];
+      newCollapsed[index] = !newCollapsed[index];
+      setCollapsed(newCollapsed);
     };
 
     return (
@@ -54,7 +53,7 @@ function RosterBlock({ players, roster }) {
             </div>
 
             {/* Table Head */}
-            <div className=" bg-myorange text-white text-xs py-[3px] rounded-sm grid grid-cols-7 mb-1">
+            <div className=" bg-black text-white text-xs py-[3px] rounded-sm grid grid-cols-7 mb-1">
 
               <div className="col-span-3 flex items-center font-bold">
                   <span className="flex-1 text-center ml-1">RANK</span>
@@ -115,37 +114,90 @@ function RosterBlock({ players, roster }) {
 
                     {/* Collapsible Content */}
                     {!collapsed[index] && (
-                        <div className="p-2  max-h-36 grid grid-cols-11">
-                            <div className='col-span-1 text-sm text-center grid grid-flow-row ml-4'>
-                                <div>
-                                    <p>rank</p>
-                                    <p className='text-md text-gray-400 mr-1'>#<b className='text-xl text-black'>{player.dynastyRank}</b></p>
-                                </div>
-                                <div>
-                                    <p>standard</p>
-                                    <b className='text-xl'>{player.standardscore}</b>
-                                </div>
-                            </div>
-                            <div className='col-span-3 mt-[-8px]'>
-                                <RankCircle production={73} potential={27} score={player.playerscore}/>   
-                                
-                            </div>
-                            <div className='col-span-7 grid grid-cols-3'>
+                        // <div className={`grid grid-cols-16 shadow-top bg-gray-100 transition-max-height duration-500 ease-in-out overflow-y-hidden ${collapsed[index] ? 'max-h-0' : 'max-h-40'}`}>
 
-                                <div className='col-span-1'>
-                                    <b>Intuition</b>
-                                    <p>Like</p>
-                                    <b>Future</b>
-                                    <p>Neutral</p>
+                        <div className={`grid grid-cols-16 bg-gray-100 border border-gray-200 transition-max-height duration-500 ease-in-out overflow-y-hidden gradient-shadow ${collapsed[index] ? 'max-h-0' : 'max-h-[10.5rem]'}`}>
+                            <div className='col-span-2 '>
+                                <div className="mx-auto flex justify-center items-center h-full pt-[.3rem] mb-[.06rem]">
+                                    <ul className="bg-white divide-y grid grid-rows-3 divide-gray-200 rounded-lg border border-gray-200 shadow-sm text-center text-3xs leading-tight mx-1 w-full ">
+                                        <li className=" flex justify-center items-center p-1 leading-none">
+                                            <div>
+                                                <h4>rank</h4>
+                                                <b className='text-lg' ><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank}</b>
+                                            </div>
+                                        </li>
+                                        <li className=" flex justify-center items-center p-1 leading-none">
+                                            <div>
+                                                <h4 >consensus</h4>
+                                                <b className='text-lg'><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank + Math.floor(Math.random() * 5 - 2)}</b>
+                                            </div>
+                                        </li>
+                                        <li className=" flex justify-center items-center p-1 leading-none">
+                                            <div>
+                                            <h4 >standard</h4>
+                                            <b className=' text-lg text-mybrightorange'>{player.standardscore}</b>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div className='col-span-1 border border-gray-300  bg-gray-50 ml-1 mb-2 p-1 rounded-sm'>
+                            </div>
+                            <div className='col-span-3 h-[10rem] py-1 pt-3 pl-1'>
+                                <RankDonut score={player.playerscore}/>
+
+                                {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
+                                    <RankDonut score={player.playerscore}/>
+                                </div> */}
+                            </div>
+                            <div className='col-span-11 grid grid-cols-8 pt-[0.25rem]'>
+                                <div className='col-span-3 grid grid-flow-row align-center mt-4 ml-2'>
+                                    <div class="space-x-1 ml-1">
+                                        <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Favor</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                                <p>Neutral</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Dislike</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="space-x-1 ml-1">
+                                        <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3 ">
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Faith</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                                <p>Neutral</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Doubt</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="space-x-1 ml-1">
+                                        <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Faith</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                                <p>Neutral</p>
+                                            </button>
+                                            <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
+                                                <p>Doubt</p>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='col-span-5  bg-white pt-[.4rem] px-2 ml-2 mr-1 rounded-lg  border border-gray-200 shadow-sm mb-1 '>
                                     <p>age: {player.age}</p>
                                     <p>mpg: 32.1</p>
                                     <p>last 60: #47</p>
                                     <p>last 2YR: #63</p>
                                     <p>contract: 3 years</p>
                                 </div>
-                                <p className='border border-gray-300 bg-gray-50 ml-1 mb-2 p-1 rounded-sm'>other stuff here</p>
                             </div>
                         </div>
                     )}
