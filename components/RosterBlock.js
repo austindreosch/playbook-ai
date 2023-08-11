@@ -185,7 +185,7 @@ function RosterBlock({ players, roster }) {
                                                 <p>Neutral</p>
                                             </button>
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                <p>Retard</p>
+                                                <p>Dumb</p>
                                             </button>
                                         </div>
                                     </div>
