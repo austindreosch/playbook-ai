@@ -6,6 +6,23 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+        {
+          mytheme: {
+             "primary": "#ffd166",
+             "secondary": "#3c91e6",         
+             "accent": "#f59e0b",        
+             "neutral": "#4b5d67",      
+             "base-100": "#f5f5f5",      
+             "info": "#42a9e0",       
+             "success": "#4caf50",       
+             "warning": "#ffc107",       
+             "error": "#d32f2f",
+          },
+        },
+      ],
+  },
   theme: {
     extend: {
       gridTemplateColumns: {
@@ -51,3 +68,8 @@ module.exports = {
   },
   plugins: [],
 }
+
+
+
+
+
