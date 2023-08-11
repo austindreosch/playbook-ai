@@ -116,9 +116,9 @@ function RosterBlock({ players, roster }) {
                     {!collapsed[index] && (
                         // <div className={`grid grid-cols-16 shadow-top bg-gray-100 transition-max-height duration-500 ease-in-out overflow-y-hidden ${collapsed[index] ? 'max-h-0' : 'max-h-40'}`}>
 
-                        <div className={`grid grid-cols-16 bg-gray-100 border border-gray-200 transition-max-height duration-500 ease-in-out overflow-y-hidden gradient-shadow ${collapsed[index] ? 'max-h-0' : 'max-h-[10.5rem]'}`}>
+                        <div className={`grid grid-cols-18 bg-gray-100 border border-gray-200 transition-max-height duration-500 ease-in-out overflow-y-hidden gradient-shadow ${collapsed[index] ? 'max-h-0' : 'max-h-[10.5rem]'}`}>
                             <div className='col-span-2 '>
-                                <div className="mx-auto flex justify-center items-center h-full pt-[.3rem] mb-[.06rem]">
+                                <div className="mx-auto flex justify-center items-center h-full pt-[.1rem] mb-[.06rem]">
                                     <ul className="bg-white divide-y grid grid-rows-3 divide-gray-200 rounded-lg border border-gray-200 shadow-sm text-center text-3xs leading-tight mx-1 w-full ">
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
@@ -141,21 +141,21 @@ function RosterBlock({ players, roster }) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className='col-span-3 h-[10rem] py-1 pt-3 pl-1'>
+                            <div className='col-span-4 h-[10rem] py-1 pt-3 pl-1'>
                                 <RankDonut score={player.playerscore}/>
 
                                 {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
                                     <RankDonut score={player.playerscore}/>
                                 </div> */}
                             </div>
-                            <div className='col-span-11 grid grid-cols-8 pt-[0.25rem]'>
-                                <div className='col-span-3 grid grid-flow-row align-center mt-4 ml-2'>
+                            <div className='col-span-12 grid grid-cols-8 pt-[0.25rem]'>
+                                <div className='col-span-3 grid grid-flow-row align-center mt-4'>
                                     <div class="space-x-1 ml-1">
                                         <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
                                                 <p>Favor</p>
                                             </button>
-                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                            <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
                                                 <p>Neutral</p>
                                             </button>
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
@@ -168,7 +168,7 @@ function RosterBlock({ players, roster }) {
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
                                                 <p>Faith</p>
                                             </button>
-                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                            <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
                                                 <p>Neutral</p>
                                             </button>
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
@@ -179,13 +179,13 @@ function RosterBlock({ players, roster }) {
                                     <div class="space-x-1 ml-1">
                                         <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                <p>Faith</p>
+                                                <p>Smart</p>
                                             </button>
-                                            <button type="button" className="col-span-1 rounded-md bg-myblue px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
+                                            <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
                                                 <p>Neutral</p>
                                             </button>
                                             <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                <p>Doubt</p>
+                                                <p>Retard</p>
                                             </button>
                                         </div>
                                     </div>
