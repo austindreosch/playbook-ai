@@ -3,7 +3,7 @@ import HubBlock from "../components/HubBlock";
 import NavBar from "../components/NavBar";
 import RosterBlock from "../components/RosterBlock";
 
-// import TestBlock from "../components/test/TestBlock";
+import TestBlock from "../components/test/TestBlock";
 
 import Link from "next/link";
 
@@ -66,8 +66,8 @@ export default async function Home() {
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" />
-          {/* <TestBlock /> */}
+          {/* <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" /> */}
+          <TestBlock />
         </div>
 
         {/* DetailBlock */}
