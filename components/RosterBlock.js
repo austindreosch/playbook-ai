@@ -191,22 +191,12 @@ function RosterBlock({ players, roster }) {
                                     </div>
                                 </div>
 
-                                <div className='col-span-5  bg-white pt-[.4rem] px-2 ml-2 mr-1 rounded-lg  border border-gray-200 shadow-sm mb-1 grid grid-flow-col '>
-                                    <div className='grid grid-cols-5 my-auto align-middle justify-center px-2'>
-                                        <div className='col-span-2 grid grid-flow-cols'>
-                                            <div> <FontAwesomeIcon icon={faCalendarDays} /> <b className='text-center ml-0.5'>AGE</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faClock} /> <b className='text-center'>MINS</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>DEAL</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div>
-                                        </div>
-                                        <div className='col-span-3 ml-1'>
-                                            <div> <span> {player.age}</span> </div>
-                                            <div> <span> {player.age + 5}</span> </div>
-                                            <div> <span> {Math.round(player.age / 10)}YR</span> </div>
-                                            <div> <span> {player.age + 10}M</span> </div>
-                                        </div>
-                                    </div>
-                                    <div className='my-auto align-middle justify-center flex px-2'><img  className="rounded-lg w-full max-h-full border border-gray-300 bg-gray-50"src={player.image} alt="" /></div>
+                                <div className='col-span-5  bg-white pt-[.4rem] px-2 ml-2 mr-1 rounded-lg  border border-gray-200 shadow-sm mb-1 '>
+                                    <p>age: {player.age}</p>
+                                    <p>mpg: 32.1</p>
+                                    <p>last 60: #47</p>
+                                    <p>last 2YR: #63</p>
+                                    <p>contract: 3 years</p>
                                 </div>
                             </div>
                         </div>
