@@ -9,13 +9,16 @@ export default function ImportLeagueForm({ userId }) {
   const [leagueId, setLeagueId] = useState('');
   const [leagueName, setLeagueName] = useState('');
   const [selectedProvider, setSelectedProvider] = useState(null);
+  const [step, setStep] = useState('initial');
+  const [leagueData, setLeagueData] = useState(null);
+  const [availableTeams, setAvailableTeams] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Post data to the API route
-      const response = await fetch('/api/import/leaguedata', {
-        method: 'POST',
+      const response = await fetch('/api/importleaguedata', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -25,6 +28,20 @@ export default function ImportLeagueForm({ userId }) {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+
+        const leagueInfo = await getLeagueDataForImport(leagueId, leagueName, selectedProvider);
+        setLeagueData(leagueInfo);
+
+        const teams = leagueInfo.teams;
+        const teamNames = [];
+      
+        for (const team of teams) {
+          teamNames.push(team.teamName);
+        }
+        setAvailableTeams(teamNames);
+
+        setStep('teamSelect');
+
       } else {
         const text = await response.text();
         console.error(`Error response: ${text}`);
@@ -35,8 +52,12 @@ export default function ImportLeagueForm({ userId }) {
     }
   };
 
+  if (step === 'initial') {
+
+
+
   return (
-    <div className="mx-auto max-w-xs bg-white p-10 w-96 rounded-lg shadow-md">
+    <div className="mx-auto max-w-xs bg-white p-10 w-80 rounded-lg shadow-md h-[35rem]">
       <div>
         <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
           {/* question 1 */}
@@ -105,7 +126,7 @@ export default function ImportLeagueForm({ userId }) {
           </button>
         </form>
 
-        <div className='pt-6 text-center'>
+        <div className='pt-6 text-center max-w-sm'>
           <div className='bg-myorange p-2 rounded-md shadow-md'>
             <div className="mb-2 text-xs text-back"><b>Don't have a league?</b> Try mine!</div>
             <div className='bg-white border border-gray-200 rounded-md grid row-span-2 justify-center align-middle p-1 shadow-lg'>
@@ -117,7 +138,73 @@ export default function ImportLeagueForm({ userId }) {
 
       </div>
     </div>
+
+  // testststststs
+
+
+
+
+
+
+
+
+
+
+
+
+
   );
+  } else if (step === 'teamSelect') {
+    
+    
+    return (
+      <div className="mx-auto  bg-white p-10 w-2/5 rounded-lg shadow-md h-[35rem]">
+        <div>
+          <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-4">
+            
+            <div>
+              <h2>Select a Team</h2>
+              {availableTeams.map((teamName, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleTeamSelection(index)} // Modify this as per your logic
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-2" // Tailwind CSS classes
+                >
+                  {teamName}
+                </button>
+              ))}
+            </div>
+
+              
+            {/* submit button */}
+            <button type="submit" className="mt-20 inline-flex items-center gap-1.5 rounded-lg border border-primary-500 bg-myblue px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-primary-700 hover:bg-primary-700 focus:ring focus:ring-primary-200 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-primary-300">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z" />
+                <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z" />
+              </svg>
+              Finalize Import
+            </button>
+          </form>
+
+          <div className='pt-6  max-w-xs mx-auto flex justify-center items-center align-middle'>
+            <div className='bg-myorange p-2 rounded-md shadow-md'>
+              <div className="mb-2 text-xs text-back"><b>Testing my league?</b> Here's my team. </div>
+              <div className='bg-white border border-gray-200 rounded-md grid row-span-2 justify-center align-middle p-1 shadow-lg'>
+                <div className=" text-lg text-myblue"><b>The Godfathers</b></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      
+    )
+  }
+
+
 }
 
 
