@@ -1,4 +1,4 @@
-import { getLeagueDataForImport } from '../../utilities/path-to-your-utility-file';
+import getLeagueDataForImport from '../../../utilities/fantraxAPI';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

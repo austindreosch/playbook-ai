@@ -17,11 +17,11 @@ const TestBlock = () => {
     <div className='grid grid-cols-2'>
       <div className="bg-gray-700 text-white m-2 p-2 shadow-md rounded-lg">
         <b className='flex justify-center'>Fantrax Data</b>
-        {/* <FantraxTest/> */}
+        <FantraxTest/>
       </div>
       <div className='bg-gray-700 m-2 p-2 shadow-md rounded-lg text-white'>
         <b className='flex justify-center'>SportsFeed Data</b>
-          {/* <SportsFeedTest /> */}
+          <SportsFeedTest />
       </div>
     </div>
   );
