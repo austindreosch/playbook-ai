@@ -55,7 +55,8 @@ module.exports = {
       colors: {
         myblue: '#36A2EB',
         myotherblue: '#3C91E6',
-        myorange: '#FFBA08',
+        myorange: '#FFD166',
+        myotherorange: '#FFBA08',
         myyelloworange: '#FFD166',
         myyellow: '#FFEE88',
         mybrightorange: '#FE9000',

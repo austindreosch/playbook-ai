@@ -25,7 +25,7 @@ function NavBar (){
         <div className="max-w-[83rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <a href="#" className="text-black hover:text-white px-3 py-2">
+              <a href="/" className="text-black hover:text-white px-3 py-2">
                 <div className={`${logoFont.className} text-3xl font-bold`}>playbook</div>
               </a>
               <span className={`${oldFont.className} text-sm font-bold mt-1`}> fantasy sports toolkit</span>

@@ -23,15 +23,6 @@
  *         }
  *       ]
  *     }
- *   ],
- *   waiverPlayers: [
- *     {
- *       fantraxId: string,
- *       name: string,
- *       position: string,
- *       team: string,
- *       rotowireId: number,
- *     }
  *   ]
  * }
  * 
@@ -42,7 +33,7 @@
 
 import axios from 'axios';
 
-export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
+export const getLeagueData = async (leagueId, userTeamId, leagueName, provider) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
   const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
   
@@ -56,15 +47,14 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
     const playerDataMap = playerDataResponse.data;
 
     const leagueData = {
+      provider: provider,
       leagueId: leagueId,
       userTeamId: userTeamId,
       leagueName: leagueName,
       leagueInfo: {},
-      teams: [],
-      waiverPlayers: []
+      teams: []
     };
-    
-    leagueData.waiverPlayers = await getWaivers(leagueId); //array with unrostered players
+     //array with unrostered players
     leagueData.leagueInfo = await getLeagueInfo(leagueId); //object with roster size, active roster size, scoring system etc
 
     for (let teamId in rostersData) {
@@ -83,7 +73,6 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
             name: cleanedName,
             position: playerData.position,
             team: playerData.team,
-            statsIncId: playerData.statsIncId,
             rotowireId: playerData.rotowireId,
           });
         }
@@ -106,39 +95,6 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName) => {
 }
 
 
-
-
-
-// get all players then sort out inactive players, for a waiver list
-export const getWaivers = async (leagueId) => {
-  const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
-  
-  try {
-    const playerDataResponse = await axios.get(playerDataURL);
-    const playerDataMap = playerDataResponse.data;
-
-    const waiverPlayers = [];
-
-    for (let playerId in playerDataMap) {
-      const playerDataItem = playerDataMap[playerId]; // Change variable name to avoid conflict
-      if (playerDataItem.team !== "(N/A)" && playerDataItem.team !== "Tm") {
-        waiverPlayers.push({
-          fantraxId: playerDataItem.fantraxId,
-          name: playerDataItem.name,
-          position: playerDataItem.position,
-          team: playerDataItem.team,
-          rotowireId: playerDataItem.rotowireId,
-        });
-      }
-    }
-
-    return waiverPlayers;
-
-  } catch (error) {
-    console.error("Error fetching waiver player data:", error);
-    return null;
-  }
-}
 
 
 
@@ -183,3 +139,38 @@ const generatePositionArray = (positionConstraints) => {
   
   return positionArray;
 };
+
+
+// only needs the leagueId and the leagueName then calls the fantrax api and gets a list of the team names and their teamIds
+
+export const  getLeagueDataForImport = async (leagueId, leagueName, provider) => {
+  const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
+  
+  try {
+    const rostersResponse = await axios.get(retrieveRostersURL);
+    const rostersData = rostersResponse.data;
+
+    const leagueData = {
+      provider: provider,
+      leagueId: leagueId,
+      leagueName: leagueName,
+      teams: []
+    };
+
+    for (let teamId in rostersData) {
+      const teamData = rostersData[teamId];
+
+      leagueData.teams.push({
+        teamId: teamId,
+        teamName: teamData.teamName
+      });
+    }
+
+    console.log(leagueData);
+    return leagueData;
+
+  } catch (error) {
+    console.error("Error fetching and processing league data:", error);
+    throw error;
+  }
+}
