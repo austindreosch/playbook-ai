@@ -33,7 +33,7 @@
 
 import axios from 'axios';
 
-export const getLeagueData = async (leagueId, userTeamId, leagueName, provider) => {
+export const getLeagueData = async (leagueId, userTeamId, leagueName, provider, leagueFormat) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
   const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
   
@@ -51,6 +51,7 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName, provider) 
       leagueId: leagueId,
       userTeamId: userTeamId,
       leagueName: leagueName,
+      leagueFormat: leagueFormat,
       leagueInfo: {},
       teams: []
     };
@@ -145,6 +146,7 @@ const generatePositionArray = (positionConstraints) => {
 
 export const  getLeagueDataForImport = async (leagueId, leagueName, provider) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
+
   
   try {
     const rostersResponse = await axios.get(retrieveRostersURL);
@@ -154,6 +156,7 @@ export const  getLeagueDataForImport = async (leagueId, leagueName, provider) =>
       provider: provider,
       leagueId: leagueId,
       leagueName: leagueName,
+      leagueTeamCount: Object.keys(rostersData).length,
       teams: []
     };
 
@@ -174,3 +177,4 @@ export const  getLeagueDataForImport = async (leagueId, leagueName, provider) =>
     throw error;
   }
 }
+

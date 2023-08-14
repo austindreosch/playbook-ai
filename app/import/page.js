@@ -9,7 +9,7 @@ export default function LeaguePage() {
   const { user } = useUser();
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center p-10">
       <ImportLeagueForm userId={user?.sub} />
     </div>
   );

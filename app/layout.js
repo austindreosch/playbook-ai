@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
           <NavBar />
           {children}
         </body>
-        {/* <footer className='bg-white' >
+        <footer className='bg-white' >
           <FooterBlock />
-        </footer> */}
+        </footer>
       </html>
     </UserProvider>
   )
