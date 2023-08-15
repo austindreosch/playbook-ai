@@ -17,7 +17,7 @@ export default function Page(){
                             </div>
                             <div class="flex-1">
                                 <h4 class="text-lg font-medium leading-normal">Customize analysis to your own value system</h4>
-                                <p class="text-gray-500 text-sm">Have a good feeling about a player? Maybe a nagging doubt? Are you rebuilding or contending? Does an opposing owner seem too eager to make a good player available? Playbook tracks every piece of data you feed it and defines a powerful customized dataset.</p>
+                                <p class="text-gray-500 text-sm">Have a good feeling about a player? Are you rebuilding or contending? Does an opposing owner seem a little too eager to make a good player available? Playbook tracks every piece of data you feed it and defines a powerful customized dataset.</p>
                             </div>
                             </li>
                             <li class="flex gap-4">
