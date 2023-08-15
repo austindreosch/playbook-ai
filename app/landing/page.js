@@ -17,7 +17,7 @@ export default function Page(){
                             </div>
                             <div class="flex-1">
                                 <h4 class="text-lg font-medium leading-normal">Customize analysis to your own value system</h4>
-                                <p class="text-gray-500 text-sm">Have a good feeling about a player? Are you rebuilding or contending? Does an opposing owner seem a little too eager to make a good player available? Playbook tracks every piece of data you feed it and defines a powerful customized dataset.</p>
+                                <p class="text-gray-500 text-sm">Have a good feeling about a player? Prefer young players for a rebuild? Does an opposing owner seem a little too eager to make a good player available? Playbook tracks every piece of data you feed it and defines a powerful customized dataset.</p>
                             </div>
                             </li>
                             <li class="flex gap-4">
@@ -28,7 +28,7 @@ export default function Page(){
                             </div>
                             <div class="flex-1">
                                 <h4 class="text-lg font-medium leading-normal">Find smart trades and exploit hidden value</h4>
-                                <p class="text-gray-500 text-sm">Contrast your dynamic dataset against the league standard and exploit the differences.  </p>
+                                <p class="text-gray-500 text-sm">Contrast your custom dataset against the community standard and exploit the differences. Playbook does the thinking for you and displays all your options in realtime across all your leagues, providing unprecedented clarity of all opportunities. </p>
                             </div>
                             </li>
                             <li class="flex gap-4">
