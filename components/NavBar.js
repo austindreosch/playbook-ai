@@ -26,15 +26,15 @@ function NavBar (){
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <a href="/" className="text-black hover:text-white px-3 py-2">
-                <div className={`${logoFont.className} text-3xl font-bold`}>playbook</div>
+                <div className={`${logoFont.className} text-3xl font-bold`}>playbook AI</div>
               </a>
               <span className={`${oldFont.className} text-sm font-bold mt-1`}> fantasy sports toolkit</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Home</a>
-                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Features</a>
-                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Pricing</a>
+                <a href="/landing" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Landing</a>
+                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Feature Roadmap</a>
                 <Link href="/about" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>About</Link>
                 <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Contact</a>
               </div>
