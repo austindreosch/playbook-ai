@@ -1,6 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const RosterPlayerRow = ({ player, index }) => {
+function getColorForStat(value, average) {
+    // Define weights (ranges) inside the function
+    const eliteRange = average * 1.10; // 20% better than average
+    const goodRange = average * 1.02; // 10% better than average
+    const poorRange = average * 0.85; // 10% worse than average
+    const badRange = average * 0.7; // 20% worse than average
+
+    if (value >= eliteRange) return 'bg-green-300';
+    if (value >= goodRange) return 'bg-green-100';
+    if (value >= average) return 'bg-green-50';
+    if (value >= poorRange) return 'bg-red-100';
+    return 'bg-red-300';
+} 
+
+function getColorForTO(value, average) {
+    const eliteRange = average * 0.8;
+    const goodRange = average * 0.9;
+    const badRange = average * 1.1;
+
+    if (value <= eliteRange) return 'bg-green-300';
+    if (value <= goodRange) return 'bg-green-200';
+    if (value <= average) return 'bg-green-100';
+    if (value <= badRange) return 'bg-red-100';
+    return 'bg-red-300';
+}
+
+
+
+
+export const RosterPlayerRow = ({ players, player, index }) => {
+    const [collapsed, setCollapsed] = useState(players.map(() => true)); // Each player starts as collapsed
+    const [activeTab, setActiveTab] = useState(0); // each player starts with tab 0 (current season) active
+    
+    const toggleCollapse = (index) => {
+      const newCollapsed = [...collapsed];
+      newCollapsed[index] = !newCollapsed[index];
+      setCollapsed(newCollapsed);
+    };
+
+
+
     <div key={index} className="border border-gray-100 my-[.25rem] shadow-sm">  
         {/* Collapsible Front */}
         <div 

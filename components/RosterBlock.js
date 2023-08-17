@@ -4,46 +4,30 @@ import { faCalendarDays, faClock, faSackDollar, faSliders } from '@fortawesome/f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { createRef, useRef, useState } from 'react';
 import RankDonut from '../components/RankDonut';
-
-function getColorForStat(value, average) {
-    // Define weights (ranges) inside the function
-    const eliteRange = average * 1.10; // 20% better than average
-    const goodRange = average * 1.02; // 10% better than average
-    const poorRange = average * 0.85; // 10% worse than average
-    const badRange = average * 0.7; // 20% worse than average
-
-    if (value >= eliteRange) return 'bg-green-300';
-    if (value >= goodRange) return 'bg-green-100';
-    if (value >= average) return 'bg-green-50';
-    if (value >= poorRange) return 'bg-red-100';
-    return 'bg-red-300';
-} 
-
-function getColorForTO(value, average) {
-    const eliteRange = average * 0.8;
-    const goodRange = average * 0.9;
-    const badRange = average * 1.1;
-
-    if (value <= eliteRange) return 'bg-green-300';
-    if (value <= goodRange) return 'bg-green-200';
-    if (value <= average) return 'bg-green-100';
-    if (value <= badRange) return 'bg-red-100';
-    return 'bg-red-300';
-}
+import { RosterPlayerRow } from '../components/RosterPlayerRow';
 
 
+// import players from '../data/players.json';
 
+const players = [
+    { playerscore: 98, standardscore: 95, image: 'https://fantraximg.com/si/headshots/NBA/hs0011e_96_6.png', dynastyRank: 86, name: 'LeBron James', position: 'SF', team: 'LAL', age: 36, fgPercent: '50.4%', threePM: 2.3, ftPercent: '69.8%', pts: 25, reb: 8.2, ast: 8.6, st: 1.3, blk: 1.1, to: 3.2 },
+    { playerscore: 96, standardscore: 94, image: 'https://fantraximg.com/si/headshots/NBA/hs001aw_96_6.png', dynastyRank: 42, name: 'Kevin Durant', position: 'SF', team: 'BKN', age: 33, fgPercent: '52.8%', threePM: 2.5, ftPercent: '88.2%', pts: 27, reb: 7, ast: 5, st: 0.7, blk: 1.3, to: 3.1 },
+    { playerscore: 94, standardscore: 92, image: 'https://fantraximg.com/si/headshots/NBA/hs01enh_96_6.png', dynastyRank: 46, name: 'Stephen Curry', position: 'PG', team: 'GSW', age: 33, fgPercent: '48.1%', threePM: 4.7, ftPercent: '91.6%', pts: 27, reb: 5, ast: 6, st: 1.2, blk: 0.3, to: 3.3 },
+    { playerscore: 92, standardscore: 90, image: 'https://fantraximg.com/si/headshots/NBA/hs031m2_96_6.png', dynastyRank: 7, name: 'Giannis Antetokounmpo', position: 'PF', team: 'MIL', age: 26, fgPercent: '56.9%', threePM: 1.1, ftPercent: '68.5%', pts: 28, reb: 11, ast: 6, st: 1.2, blk: 1.3, to: 3.5 },
+    { playerscore: 91, standardscore: 89, image: 'https://fantraximg.com/si/headshots/NBA/hs027oz_96_6.png', dynastyRank: 42, name: 'Kawhi Leonard', position: 'SF', team: 'LAC', age: 30, fgPercent: '51.2%', threePM: 2.0, ftPercent: '88.5%', pts: 25, reb: 6, ast: 5, st: 1.6, blk: 0.6, to: 2 },
+    { playerscore: 89, standardscore: 87, image: 'https://fantraximg.com/si/headshots/NBA/hs04kj6_96_5.png', dynastyRank: 2, name: 'Luka Doncic', position: 'PG', team: 'DAL', age: 22, fgPercent: '47.9%', threePM: 2.9, ftPercent: '73.2%', pts: 28, reb: 8, ast: 8, st: 1, blk: 0.5, to: 4 },
+    { playerscore: 88, standardscore: 86, image: 'https://fantraximg.com/si/headshots/NBA/hs01eo6_96_6.png', dynastyRank: 38, name: 'James Harden', position: 'SG', team: 'BKN', age: 31, fgPercent: '44.4%', threePM: 2.8, ftPercent: '86.3%', pts: 25, reb: 8, ast: 10, st: 1.3, blk: 0.8, to: 4 },
+    { playerscore: 87, standardscore: 85, image: 'https://fantraximg.com/si/headshots/NBA/hs03al2_96_6.png', dynastyRank: 13, name: 'Joel Embiid', position: 'C', team: 'PHI', age: 27, fgPercent: '51.3%', threePM: 1.0, ftPercent: '85.9%', pts: 28, reb: 10, ast: 3, st: 0.9, blk: 1.4, to: 3 },
+    { playerscore: 85, standardscore: 83, image: 'https://fantraximg.com/si/headshots/NBA/hs02nf1_96_6.png', dynastyRank: 25, name: 'Anthony Davis', position: 'PF', team: 'LAL', age: 28, fgPercent: '53.1%', threePM: 0.8, ftPercent: '79.1%', pts: 22, reb: 9, ast: 3, st: 1.3, blk: 1.8, to: 2 },
+    { playerscore: 84, standardscore: 82, image: 'https://fantraximg.com/si/headshots/NBA/hs03e75_96_6.png', dynastyRank: 1, name: 'Nikola Jokic', position: 'C', team: 'DEN', age: 26, fgPercent: '56.6%', threePM: 1.3, ftPercent: '86.8%', pts: 26, reb: 10, ast: 8, st: 1.2, blk: 0.7, to: 3 },
+    { playerscore: 83, standardscore: 81, image: 'https://fantraximg.com/si/headshots/NBA/hs03xmv_96_5.png', dynastyRank: 6, name: 'Jayson Tatum', position: 'SF', team: 'BOS', age: 23, fgPercent: '45.9%', threePM: 2.6, ftPercent: '86.8%', pts: 26, reb: 7, ast: 4, st: 1.2, blk: 0.5, to: 2.7 },
+    { playerscore: 82, standardscore: 80, image: 'https://fantraximg.com/si/headshots/NBA/hs04ewe_96_5.png', dynastyRank: 15, name: 'Donovan Mitchell', position: 'SG', team: 'UTA', age: 24, fgPercent: '43.8%', threePM: 3.4, ftPercent: '84.5%', pts: 26, reb: 4, ast: 5, st: 1, blk: 0.3, to: 2.8 },
+    { playerscore: 81, standardscore: 79, image: 'https://fantraximg.com/si/headshots/NBA/hs03nwm_96_6.png', dynastyRank: 22, name: 'Devin Booker', position: 'SG', team: 'PHX', age: 24, fgPercent: '48.4%', threePM: 2.3, ftPercent: '86.9%', pts: 25, reb: 4, ast: 4, st: 0.8, blk: 0.2, to: 3.2 },
+    { playerscore: 80, standardscore: 78, image: 'https://fantraximg.com/si/headshots/NBA/hs027pe_96_6.png', dynastyRank: 65, name: 'Jimmy Butler', position: 'SF', team: 'MIA', age: 31, fgPercent: '49.7%', threePM: 0.5, ftPercent: '86.3%', pts: 21, reb: 6, ast: 7, st: 2, blk: 0.4, to: 2.1 },
+    { playerscore: 79, standardscore: 77, image: 'https://fantraximg.com/si/headshots/NBA/hs03lg1_96_6.png', dynastyRank: 68, name: 'Ben Simmons', position: 'PG', team: 'PHI', age: 25, fgPercent: '55.7%', threePM: 0.1, ftPercent: '61.3%', pts: 14, reb: 7, ast: 7, st: 1.6, blk: 0.6, to: 3.5 },
+  ];
 
-
-function RosterBlock({ players, roster }) {
-    const [collapsed, setCollapsed] = useState(players.map(() => true)); // Each player starts as collapsed
-    const [activeTab, setActiveTab] = useState(0); // each player starts with tab 0 (current season) active
-    
-    const toggleCollapse = (index) => {
-      const newCollapsed = [...collapsed];
-      newCollapsed[index] = !newCollapsed[index];
-      setCollapsed(newCollapsed);
-    };
+function RosterBlock({ league, roster }) {
 
     return (
         <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 my-2 mx-1 h-full">
@@ -79,167 +63,7 @@ function RosterBlock({ players, roster }) {
 
             
             {players.map((player, index) => (
-                <div key={index} className="border border-gray-100 my-[.25rem] shadow-sm">
-                    
-                    {/* Collapsible Front */}
-                    <div 
-                        className="text-lg font-medium px-1 cursor-pointer grid grid-cols-[3fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr]" 
-                        onClick={() => toggleCollapse(index)}>
-
-                        <div className="col-span-3 grid grid-cols-8">
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>{player.dynastyRank}</span>
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{player.playerscore}</span>
-                            <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
-                                <img className='bg-gray-200 rounded-md' src={player.image} alt="" />
-                            </div>
-                            <div className='col-span-5 ml-1 mt-1'>
-                                <div className='text-sm leading-tight'>{player.name}</div>
-                                <div className='text-2xs text-gray-400 leading-tight'>
-                                  {player.position}  ·  {player.team}
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <div className="col-span-7 flex items-center text-xs gap-[2px] overflow-hidden">
-                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.fgPercent), 49.1)}`}>{player.fgPercent}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.threePM, 1.63)}`}>{player.threePM}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.ftPercent), 80.0)}`}>{player.ftPercent}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.pts, 17.11)}`}>{player.pts}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.pts, 17.11)}`}>{player.reb}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.ast, 3.97)}`}>{player.ast}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.st, 0.96)}`}>{player.st}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.blk, 0.64)}`}>{player.blk}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForTO(player.to, 1.96)}`}>{player.to}</span>
-                        </div> 
-                    </div>
-
-                    {/* Collapsible Content */}
-                    {!collapsed[index] && (
-                        // <div className={`grid grid-cols-16 shadow-top bg-gray-100 transition-max-height duration-500 ease-in-out overflow-y-hidden ${collapsed[index] ? 'max-h-0' : 'max-h-40'}`}>
-
-                        <div className={`grid grid-cols-18 bg-gray-100 border border-gray-200 transition-max-height duration-500 ease-in-out overflow-y-hidden gradient-shadow ${collapsed[index] ? 'max-h-0' : 'max-h-[10.5rem]'}`}>
-                            <div className='col-span-2'>
-                                <div className="m-auto flex justify-center items-center pt-[.1rem] mb-[.06rem] mt-[.7rem]">
-                                    <ul className="bg-white divide-y grid grid-rows-3 divide-gray-200 rounded-lg border border-gray-200 shadow-sm text-center text-3xs leading-tight mx-1 w-full ">
-                                        <li className=" flex justify-center items-center p-1 leading-none">
-                                            <div>
-                                                <h4>rank</h4>
-                                                <p className='text-lg' ><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank}</p>
-                                            </div>
-                                        </li>
-                                        <li className=" flex justify-center items-center p-1 leading-none">
-                                            <div>
-                                                <h4 >consensus</h4> 
-                                                <p className='text-lg'><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank + Math.floor(Math.random() * 5 - 2)}</p>
-                                            </div>
-                                        </li>
-                                        <li className=" flex justify-center items-center p-1 leading-none">
-                                            <div>
-                                            <h4 >standard</h4>
-                                            <b className=' text-lg text-mybrightorange'>{player.standardscore}</b>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className='col-span-4 h-[10rem] py-1 pt-3 pl-1'>
-                                <RankDonut score={player.playerscore}/>
-
-                                {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
-                                    <RankDonut score={player.playerscore}/>
-                                </div> */}
-                            </div>
-                            <div className='col-span-12  ml-1 m-1 max-h-[9.5rem] '>
-                                <div className='col-span-12 grid grid-rows-8  bg-white  rounded-lg  border border-gray-200 shadow-md h-full'>
-                                    <div className='grid grid-cols-12 row-span-6 my-auto align-middle justify-center px-2 h-full'>
-                                        <div className='col-span-2 grid grid-flow-cols py-2'>
-                                            <div> <FontAwesomeIcon icon={faCalendarDays} /> <b className='text-center ml-0.5'>AGE</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faClock} /> <b className='text-center'>MINS</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>DEAL</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div>
-                                        </div>
-                                        <div className='col-span-1 ml-1 grid grid-flow-cols py-2'>
-                                            <div> <span> {player.age}</span> </div>
-                                            <div> <span> {player.age + 5}</span> </div>
-                                            <div> <span> {Math.round(player.age / 10)}YR</span> </div>
-                                            <div> <span> {player.age + 10}M</span> </div>
-                                        </div>
-                                        <div className='col-span-9 my-auto align-middle justify-center flex px-2'>
-                                            <img  className="rounded-lg border border-gray-300 bg-gray-50 h-20 w-20 my-auto max-h-full" src={player.image} alt="" />
-                                            
-                                            <div className=' grid grid-flow-row align-center mt-4 w-full'>
-                                                <div class="space-x-1 ml-1">
-                                                    <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Favor</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
-                                                            <p>Neutral</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Dislike</p>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="space-x-1 ml-1">
-                                                    <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3 ">
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Faith</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
-                                                            <p>Neutral</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Doubt</p>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="space-x-1 ml-1">
-                                                    <div class="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Smart</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-gray-400 px-1 py-1 text-center text-xs font-medium text-white hover:bg-myotherblue">
-                                                            <p>Neutral</p>
-                                                        </button>
-                                                        <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
-                                                            <p>Dumb</p>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='row-span-2  text-center rounded-md'>
-
-                                        <div className=' flex justify-center middle-align bg-gray-100 border border-gray-300 rounded-b-md'>
-                                            <div className="overflow-hidden rounded-md  ">
-                                                <ul className="grid items-center gap-4 text-sm font-medium grid-flow-col  my-0.5">
-                                                {['Current', 'Last 30', 'Last 60', 'Last Season', 'Last 2 Seasons'].map((tab, index) => (
-                                                    <li key={index}>
-                                                    <a
-                                                        onClick={() => setActiveTab(index)}
-                                                        className={`inline-flex cursor-pointer items-center gap-2 rounded-sm px-2 py-2 ${
-                                                        activeTab === index ? 'bg-myblue text-white shadow-md' : ''
-                                                        } hover:bg-mymidblue hover:text-white hover:shadow`}
-                                                    >
-                                                        {tab}
-                                                    </a>
-                                                    </li>
-                                                ))}
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    
-
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                <RosterPlayerRow player={player} index={index}/>
             ))}
         </div>
     );
