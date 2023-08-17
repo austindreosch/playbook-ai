@@ -60,13 +60,13 @@ export default async function Home() {
       <div className="grid lg:grid-cols-12 gap-y-2 mx-1">
         {/* First RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="My Roster" />
+          {/* <TestBlock /> */}
         </div>
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
           {/* <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" /> */}
-          <TestBlock />
+          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="My Roster" />
         </div>
 
         {/* DetailBlock */}
