@@ -151,26 +151,25 @@ function RosterBlock({ players, roster }) {
                                 </div> */}
                             </div>
                             <div className='col-span-12  ml-1 m-1 max-h-[9.2rem] '>
-                                <div className=' grid grid-rows-8  bg-white  rounded-lg  border border-gray-200 shadow-md h-full'>
-                                    <div className='grid grid-cols-15 row-span-6 pl-2 h-full text-2xs'>
-                                        <div className='col-span-2 pt-3 '>
+                                <div className=' grid grid-rows-8  bg-white  rounded-lg  border border-gray-200 shadow-md h-full '>
+                                    <div className='grid grid-cols-15 row-span-6 pl-2 h-full text-2xs '>
+                                        <div className='col-span-2 my-auto '>
                                             <div> <FontAwesomeIcon icon={faCalendarDays} /> <b className='text-center ml-0.5'>AGE</b>  </div>
                                             <div> <FontAwesomeIcon icon={faClock} /> <b className='text-center'>MINS</b>  </div>
                                             <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>DEAL</b>  </div>
                                             <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div>
                                         </div>
-                                        <div className='col-span-1 ml-1 pt-3'>
+                                        <div className='col-span-1 ml-1 my-auto'>
                                             <div> <span> {player.age}</span> </div>
                                             <div> <span> {player.age + 5}</span> </div>
                                             <div> <span> {Math.round(player.age / 10)}YR</span> </div>
                                             <div> <span> {player.age + 10}M</span> </div>
                                         </div>
-                                        <div className='col-span-2 flex justify-center align-middle'>
-                                            <img  className="rounded-lg border border-gray-300 bg-gray-50  h-[50%] align-middle" src={player.image} alt="" />
+                                        <div className='col-span-3 flex justify-center align-middle my-auto mx-1'>
+                                            <img  className="rounded-lg border border-gray-300 bg-gray-50 align-middle m-1" src={player.image} alt="" />
                                         </div>
-                                        <div className='col-span-10 align-middle  flex px-2'>
-                                            
-                                            <div className=' grid grid-flow-row align-center my-4 w-full'>
+                                        <div className='col-span-9 flex pr-1 '>
+                                            <div className=' grid grid-flow-row align-center my-auto w-full'>
                                                 <div className="space-x-1 ml-1">
                                                     <div className="bg-white rounded-lg border border-gray-200 py-0.5 shadow-sm w-full grid grid-cols-3">
                                                         <button type="button" className="col-span-1 rounded-md bg-white px-1 py-1 text-center text-xs font-medium text-secondary-700 hover:bg-gray-100">
@@ -217,12 +216,12 @@ function RosterBlock({ players, roster }) {
 
                                         <div className=' flex justify-center middle-align bg-gray-100 border border-gray-300 rounded-b-md'>
                                             <div className="overflow-hidden rounded-md  ">
-                                                <ul className="grid items-center gap-4 text-sm font-medium grid-flow-col  my-0.5">
+                                                <ul className="grid items-center gap-4 text-xs md:text-sm font-medium grid-flow-col  my-0.5">
                                                 {['Current', 'Last 30', 'Last 60', 'Last Season', 'Last 2 Seasons'].map((tab, index) => (
                                                     <li key={index}>
                                                     <a
                                                         onClick={() => setActiveTab(index)}
-                                                        className={`inline-flex cursor-pointer items-center gap-2 rounded-sm px-2 py-2 ${
+                                                        className={`inline-flex cursor-pointer items-center gap-2 rounded-sm md:p-2 ${
                                                         activeTab === index ? 'bg-myblue text-white shadow-md' : ''
                                                         } hover:bg-mymidblue hover:text-white hover:shadow`}
                                                     >
