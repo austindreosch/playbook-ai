@@ -5,7 +5,8 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  plugins: [require("daisyui")],
+  // plugins: [require("daisyui"), ['prettier-plugin-tailwindcss']],
+  plugins: ['prettier-plugin-tailwindcss'],
   daisyui: {
     themes: [
         {
