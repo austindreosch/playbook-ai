@@ -45,14 +45,9 @@ export default async function Home() {
     { playerscore: 79, standardscore: 77, image: 'https://fantraximg.com/si/headshots/NBA/hs03lg1_96_6.png', dynastyRank: 68, name: 'Ben Simmons', position: 'PG', team: 'PHI', age: 25, fgPercent: '55.7%', threePM: 0.1, ftPercent: '61.3%', pts: 14, reb: 7, ast: 7, st: 1.6, blk: 0.6, to: 3.5 },
   ];
   
-  const response = await fetch('https://api.github.com/repos/vercel/next.js')
-  const data = await response.json()
-
 
   
   return (
-
-
     <div className="min-h-screen bg-gray-200">
       <div className="text-center">
         <HubBlock />
@@ -65,7 +60,6 @@ export default async function Home() {
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          {/* <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="Opposing Roster" /> */}
           <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="My Roster" />
         </div>
 
@@ -75,7 +69,5 @@ export default async function Home() {
         </div>
       </div>
     </div>
-
-
   )
 }

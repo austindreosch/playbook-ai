@@ -33,8 +33,8 @@
 
 import axios from 'axios';
 
-export const getLeagueData = async (leagueId, userTeamId, leagueName, provider, leagueFormat) => {
-  const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
+export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId, userAuthId, leagueName, leagueProvider, leagueFormat, leagueSport, leagueScoring ) => {
+  const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${providerLeagueId}`;
   const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
   
   try {
@@ -47,16 +47,20 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName, provider, 
     const playerDataMap = playerDataResponse.data;
 
     const leagueData = {
-      provider: provider,
-      leagueId: leagueId,
+      uniqueLeagueId: uniqueLeagueId,
+      userAuthId: userAuthId,
       userTeamId: userTeamId,
+      providerLeagueId: providerLeagueId,
+      leagueProvider: leagueProvider,
       leagueName: leagueName,
+      leagueSport: leagueSport,
       leagueFormat: leagueFormat,
+      leagueScoring: leagueScoring,
       leagueInfo: {},
       teams: []
     };
      //array with unrostered players
-    leagueData.leagueInfo = await getLeagueInfo(leagueId); //object with roster size, active roster size, scoring system etc
+    leagueData.leagueInfo = await getLeagueInfo(providerLeagueId); //object with roster size, active roster size, scoring system etc
 
     for (let teamId in rostersData) {
       const teamData = rostersData[teamId];
@@ -86,7 +90,7 @@ export const getLeagueData = async (leagueId, userTeamId, leagueName, provider, 
       });
     }
 
-    console.log(leagueData);
+    // console.log(leagueData);
     return leagueData;
 
   } catch (error) {
