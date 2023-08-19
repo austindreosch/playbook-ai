@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
-
-module.exports = nextConfig
+module.exports = {
+    webpack: (config, { isServer }) => {
+      config.module.rules.push({
+        test: /\.node$/,
+        loader: 'node-loader',
+      });
+  
+      return config;
+    },
+  };

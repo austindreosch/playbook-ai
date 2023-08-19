@@ -2,12 +2,13 @@
 'use client'
 
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import League from '../models/League';
 import { getLeagueData, getLeagueDataForImport } from '../utilities/fantraxAPI';
 
 export default function ImportLeagueForm({ userId }) {
   const { user } = useUser();
+  const router = useRouter();
   const [providerLeagueId, setLeagueId] = useState('');
   const [leagueName, setLeagueName] = useState('');
   const [selectedProvider, setSelectedProvider] = useState(null);
@@ -47,16 +48,12 @@ export default function ImportLeagueForm({ userId }) {
     }
   };
   
+
   
   const handleTeamSelection = async (e) => {
     e.preventDefault();
-    console.log('UserTeamName:', selectedTeam);
-    console.log('League Provider:', selectedProvider);
-    // console.log('League ID:', leagueId);
-    console.log('League Name:', leagueName);
 
     const selectedTeamId = leagueData.teams.find((team) => team.teamName === selectedTeam)?.teamId || null;
-
     const userAuthId = user.sub;
     const uniqueLeagueId = `${userAuthId}_${providerLeagueId}`;
 
@@ -67,9 +64,6 @@ export default function ImportLeagueForm({ userId }) {
     console.log(data);
 
 
-    // Create a new instance of the League model
-    const league = new League(data); // Assuming that the data returned by getLeagueData is in the correct format
-
     // Save the league to the database
     try {
       const response = await fetch('/api/importleague', {
@@ -77,6 +71,8 @@ export default function ImportLeagueForm({ userId }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data), // Assuming data is in the correct format
       });
+      
+      router.push('/'); // this should be in the if statement below
   
       if (response.ok) {
         console.log('League saved successfully!');
