@@ -35,7 +35,7 @@ const playerSchema = new Schema({
   });
 
   console.log(mongoose.models);
-  const League = mongoose.model('League', leagueSchema);
+  const League = mongoose.model('League', leagueSchema, 'leagues');
 
 
   export default League;
