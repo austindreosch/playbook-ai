@@ -3,6 +3,7 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import UpdateStatsButton from './UpdateStatsButton';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
 
@@ -31,6 +32,7 @@ function HubBlock (){
           <div className='p-3 px-4 inline-block bg-myorange text-black rounded-md mx-1'>
             <a href="/api/auth/logout">Logout</a>
           </div>
+          <UpdateStatsButton/>
           <span className='inline-block'>
             <p className='p-3 px-2 font-light text-2xs'><b>auth-id:</b> {user.sub}</p>
           </span>

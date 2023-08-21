@@ -1,14 +1,12 @@
+
+
+import Link from "next/link";
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import NavBar from "../components/NavBar";
 import RosterBlock from "../components/RosterBlock";
-
 import TestBlock from "../components/test/TestBlock";
-
-import Link from "next/link";
-
 import FooterBlock from "/components/FooterBlock";
-
 
 import { Sen } from 'next/font/google';
 const oldFont = Sen({
@@ -65,7 +63,7 @@ export default async function Home() {
 
         {/* DetailBlock */}
         <div className="lg:col-span-2 col-span-full">
-          <DetailBlock />
+          <DetailBlock/>
         </div>
       </div>
     </div>

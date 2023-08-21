@@ -15,7 +15,10 @@ const handler = async (req, res) => {
     if (req.method === 'GET') {
       const leagues = await leaguesCollection.find({}).toArray();
       res.status(200).json(leagues);
-    } else if (req.method === 'POST') {
+    } 
+    
+    
+    else if (req.method === 'POST') {
       const league = req.body;
       const result = await leaguesCollection.insertOne(league);
 
