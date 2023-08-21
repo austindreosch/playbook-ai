@@ -2,7 +2,7 @@
 
 const { MongoClient } = require('mongodb');
 
-const uri = process.env.MYSPORTSFEEDS_API_KEY; // Update with your MongoDB URI
+const uri = process.env.MONGODB_URI; // Update with your MongoDB URI
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 export default async function handler(req, res) {
@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     await client.connect();
 
     const apiKeyToken = process.env.NEXT_PUBLIC_MYSPORTSFEEDS_API_KEY;
-    console.log('apiKeyToken:', apiKeyToken);
     const password = "MYSPORTSFEEDS";
     const credentials = Buffer.from(`${apiKeyToken}:${password}`).toString('base64');
 
