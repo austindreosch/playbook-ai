@@ -65,6 +65,8 @@ function RosterBlockPlayerRow({ player, index }) {
         </div>
       );
 
+      console.log('HERE IS THE PLAYER', player);
+
     return (
         <div key={index} className="border border-gray-100 my-[.25rem] shadow-sm">
                     
@@ -77,29 +79,29 @@ function RosterBlockPlayerRow({ player, index }) {
                             <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>{player.dynastyRank}</span>
                             <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{player.playerscore}</span>
                             <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
-                                <img className='bg-gray-200 rounded-md' src={player.image} alt="" />
+                                <img className='bg-gray-200 rounded-md' src={player.image} alt={player.name} />
                             </div>
                             <div className='col-span-5 ml-1 mt-1'>
-                                <div className='text-sm leading-tight'>{player.name}</div>
+                                <div className='text-sm leading-tight'>{player.info ? player.info.fullName : 'No Name'}</div>
                                 <div className='text-2xs text-gray-400 leading-tight'>
-                                  {player.position}  ·  {player.team}
+                                {player.position}  ·  {player.team}
                                 </div>
                             </div>
                         </div>
-                        
 
                         <div className="col-span-7 flex items-center text-xs gap-[2px] overflow-hidden">
-                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.fgPercent), 49.1)}`}>{player.fgPercent}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.threePM, 1.63)}`}>{player.threePM}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.ftPercent), 80.0)}`}>{player.ftPercent}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.pts, 17.11)}`}>{player.pts}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.pts, 17.11)}`}>{player.reb}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.ast, 3.97)}`}>{player.ast}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.st, 0.96)}`}>{player.st}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.blk, 0.64)}`}>{player.blk}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForTO(player.to, 1.96)}`}>{player.to}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.fgPct), 49.1)}`}>{player.fgPct}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.TPM, 1.63)}`}>{player.stats.TPM}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.ftPct), 80.0)}`}>{player.stats.ftPct}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.ptsPerGame, 17.11)}`}>{player.stats.ptsPerGame}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.REB, 6.4)}`}>{player.stats.REB}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.AST, 3.97)}`}>{player.stats.AST}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.STL, 0.96)}`}>{player.stats.STL}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.BLK, 0.64)}`}>{player.stats.BLK}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForTO(player.stats.TO, 1.96)}`}>{player.stats.TO}</span>
                         </div> 
                     </div>
+
 
                     {/* Collapsible Content */}
                     {!collapsed && (

@@ -58,7 +58,7 @@ export default async function Home() {
 
         {/* Second RosterBlock */}
         <div className="lg:col-span-5 col-span-full">
-          <RosterBlock leagueId="4fzl7g0gljax6594" players={players} roster="My Roster" />
+          <RosterBlock />
         </div>
 
         {/* DetailBlock */}
