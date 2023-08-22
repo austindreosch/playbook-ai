@@ -1,3 +1,6 @@
+![image](https://github.com/austindreosch/playbook-ai/assets/83053022/939359d5-12bc-4e06-b85f-645eb6e60afc)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
