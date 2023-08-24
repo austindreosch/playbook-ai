@@ -43,6 +43,11 @@ function RosterBlockPlayerRow({ player, index }) {
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
     const [selectedSmart, setSelectedSmart] = useState('Neutral');
 
+
+    console.log('HERE IS THE PLAYER IN ROWBLOCK', player)
+    console.log('HERE IS THE PLAYER INFO IN ROWBLOCK', player.info)
+    console.log('HERE IS THE PLAYER FULL NAME IN ROWBLOCK', player.info.fullName)
+
     
     const toggleCollapse = () => {
         setCollapsed(!collapsed);
@@ -64,8 +69,7 @@ function RosterBlockPlayerRow({ player, index }) {
           </div>
         </div>
       );
-
-      console.log('HERE IS THE PLAYER', player);
+                
 
     return (
         <div key={index} className="border border-gray-100 my-[.25rem] shadow-sm">
@@ -76,13 +80,13 @@ function RosterBlockPlayerRow({ player, index }) {
                         onClick={() => toggleCollapse()}>
 
                         <div className="col-span-3 grid grid-cols-8">
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>{player.dynastyRank}</span>
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{player.playerscore}</span>
+                            <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>25</span>
+                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">89</span>
                             <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
-                                <img className='bg-gray-200 rounded-md' src={player.image} alt={player.name} />
+                                <img className='bg-gray-200 rounded-md' src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} />
                             </div>
                             <div className='col-span-5 ml-1 mt-1'>
-                                <div className='text-sm leading-tight'>{player.info ? player.info.fullName : 'No Name'}</div>
+                                <div className='text-sm leading-tight'>{player.name}</div>
                                 <div className='text-2xs text-gray-400 leading-tight'>
                                 {player.position}  ·  {player.team}
                                 </div>
@@ -90,15 +94,17 @@ function RosterBlockPlayerRow({ player, index }) {
                         </div>
 
                         <div className="col-span-7 flex items-center text-xs gap-[2px] overflow-hidden">
-                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.fgPct), 49.1)}`}>{player.fgPct}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.TPM, 1.63)}`}>{player.stats.TPM}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.fgPct), 49.1)}`}>{player.stats.fgPct}</span>
+
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.fg3PtMadePerGame, 1.63)}`}>{player.stats.fg3PtMadePerGame}</span>
+                            {/* <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.TPM, 1.63)}`}>{player.stats.TPM}</span> */}
                             <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.ftPct), 80.0)}`}>{player.stats.ftPct}</span>
                             <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.ptsPerGame, 17.11)}`}>{player.stats.ptsPerGame}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.REB, 6.4)}`}>{player.stats.REB}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.AST, 3.97)}`}>{player.stats.AST}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.STL, 0.96)}`}>{player.stats.STL}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.BLK, 0.64)}`}>{player.stats.BLK}</span>
-                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForTO(player.stats.TO, 1.96)}`}>{player.stats.TO}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.rebPerGame, 6.4)}`}>{player.stats.rebPerGame}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.astPerGame, 3.97)}`}>{player.stats.astPerGame}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.stlPerGame, 0.96)}`}>{player.stats.stlPerGame}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.blkPerGame, 0.64)}`}>{player.stats.blkPerGame}</span>
+                            <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForTO(player.stats.toPerGame, 1.96)}`}>{player.stats.toPerGame}</span>
                         </div> 
                     </div>
 

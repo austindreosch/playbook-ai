@@ -6,40 +6,43 @@ import React, { useCallback, useEffect, useState } from 'react';
 import RosterBlockPlayerRow from './RosterBlockPlayerRow';
 
 function RosterBlock() {
-  const { user } = useUser();
-  
-  const [leagues, setLeagues] = useState([]);
-  const [selectedProviderTeamId, setSelectedProviderTeamId] = useState(null);
-  const [playerStats, setPlayerStats] = useState([]);
+    const { user, isLoading } = useUser();
+    const [leaguesData, setLeaguesData] = useState([]);
+    const [selectedLeagueIndex, setSelectedLeagueIndex] = useState(0); // Defaults to the first league
 
-  const fetchPlayerStats = async (playerName) => {
-    const response = await fetch(`/api/fetch/playerStats?playerName=${playerName}`);
-    if (response.ok) {
-      return response.json();
-    } else {
-      throw new Error('Failed to fetch player stats');
+    useEffect(() => {
+      const fetchLeaguesData = async () => {
+        if (!user) return;
+
+        try {
+          const response = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`);
+          if (response.ok) {
+            const leagues = await response.json();
+            setLeaguesData(leagues);
+          } else {
+            console.error('Failed to fetch leagues data');
+          }
+        } catch (error) {
+          console.error('Error fetching leagues data:', error);
+        }
+      };
+
+      fetchLeaguesData();
+    }, [user]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
     }
-  };
 
-  useEffect(() => {
-    if (selectedProviderTeamId) {
-      const selectedLeague = leagues.find(league => league.userTeamId === selectedProviderTeamId);
-      const playersInSelectedTeam = selectedLeague.teams[0].players;
-
-      Promise.all(playersInSelectedTeam.map(player => fetchPlayerStats(player.name)))
-        .then(stats => setPlayerStats(stats))
-        .catch(error => console.error('Error fetching player stats:', error));
+    if (!user) {
+        return <div>Please log in to view your roster.</div>;
     }
-  }, [selectedProviderTeamId, leagues]);
 
-
-
-
-  if (!user) {
-    return <div>Please login to view your rosters.</div>;
-  }
-
-    console.log('PLAYER STATS FOR BLOCK',playerStats);
+    const selectedLeague = leaguesData[selectedLeagueIndex];
+    const selectedTeam = selectedLeague ? selectedLeague.teams.find(team => team.teamId === selectedLeague.userTeamId) : null;
+    
+    // console.log('Selected League:', selectedLeague);
+    // console.log('selectedTeam PLAYERS:', selectedTeam);
     
     return (
         <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 my-2 mx-1 h-full">
@@ -47,19 +50,19 @@ function RosterBlock() {
             <div className='flex items-center'> 
                 <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-4">My Roster</h2>
                 <h4 className='ml-3 mt-3 text-sm'>
-                    Team Name • NBA • Dynasty • 12 Team 
-                    <select
-                        id="team-selector"
-                        value={selectedProviderTeamId}
-                        onChange={(e) => setSelectedProviderTeamId(e.target.value)}
-                        className="ml-3 border rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                        {leagues.map((league) => (
-                            <option key={league.userTeamId} value={league.userTeamId}>
-                                {league.leagueName}
-                            </option>
-                        ))}
-                    </select>
+                Team Name • NBA • Dynasty • 12 Team 
+                <select
+                    id="team-selector"
+                    value={selectedLeagueIndex}
+                    onChange={(e) => setSelectedLeagueIndex(e.target.value)}
+                    className="ml-3 border rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
+                    {leaguesData.map((league, index) => (
+                    <option key={index} value={index}>
+                        {league.leagueName}
+                    </option>
+                    ))}
+                </select>
                 </h4>
             </div>
     
@@ -79,9 +82,9 @@ function RosterBlock() {
                 </div>
             </div>
                 
-            {playerStats.map((player, index) => (
-        <RosterBlockPlayerRow key={player.name} player={player} index={index} />
-      ))}
+            {selectedTeam && selectedTeam.players.map((player, playerIndex) => (
+                <RosterBlockPlayerRow key={playerIndex} player={player} index={playerIndex} />
+            ))}
         </div>
     );
     

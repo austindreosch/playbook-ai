@@ -68,6 +68,7 @@ export default async function handler(req, res) {
         threePtPct: playerStats.stats.fieldGoals.fg3PtPct,
         offRebPerGame: playerStats.stats.rebounds.offRebPerGame,
         defRebPerGame: playerStats.stats.rebounds.defRebPerGame,
+        fg3PtMadePerGame: playerStats.stats.fieldGoals.fg3PtMadePerGame,
         efgPct: (playerStats.stats.fieldGoals.fgMade + 0.5 * playerStats.stats.fieldGoals.fg3PtMade) / playerStats.stats.fieldGoals.fgAtt,
         tsPct: (playerStats.stats.offense.pts) / (2 * (playerStats.stats.fieldGoals.fgAtt + 0.44 * playerStats.stats.freeThrows.ftAtt)) * 100,
         }
