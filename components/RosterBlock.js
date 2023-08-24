@@ -41,16 +41,22 @@ function RosterBlock() {
     const selectedLeague = leaguesData[selectedLeagueIndex];
     const selectedTeam = selectedLeague ? selectedLeague.teams.find(team => team.teamId === selectedLeague.userTeamId) : null;
     
-    // console.log('Selected League:', selectedLeague);
-    // console.log('selectedTeam PLAYERS:', selectedTeam);
+
+    if (!selectedLeague) {
+        return <div>Loading...</div>; // or any other appropriate placeholder
+    }
+
+    console.log('SELECTED LEAGUE', selectedLeague);
+
+
     
     return (
         <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 my-2 mx-1 h-full">
             {/* Component Header */}
             <div className='flex items-center'> 
-                <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-4">My Roster</h2>
+                <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-4">{selectedTeam.teamName}</h2>
                 <h4 className='ml-3 mt-3 text-sm'>
-                Team Name • NBA • Dynasty • 12 Team 
+                {selectedLeague.leagueScoring} • {selectedLeague.leagueSport} • {selectedLeague.leagueFormat} • {selectedLeague.teams.length} Team  • {selectedLeague.leagueProvider}
                 <select
                     id="team-selector"
                     value={selectedLeagueIndex}

@@ -43,11 +43,6 @@ function RosterBlockPlayerRow({ player, index }) {
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
     const [selectedSmart, setSelectedSmart] = useState('Neutral');
 
-
-    console.log('HERE IS THE PLAYER IN ROWBLOCK', player)
-    console.log('HERE IS THE PLAYER INFO IN ROWBLOCK', player.info)
-    console.log('HERE IS THE PLAYER FULL NAME IN ROWBLOCK', player.info.fullName)
-
     
     const toggleCollapse = () => {
         setCollapsed(!collapsed);
