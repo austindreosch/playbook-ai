@@ -33,6 +33,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "saslprep": "^1.0.3",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "3.3.3"
   },
   "devDependencies": {

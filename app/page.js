@@ -3,10 +3,7 @@
 import Link from "next/link";
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
-import NavBar from "../components/NavBar";
 import RosterBlock from "../components/RosterBlock";
-import TestBlock from "../components/test/TestBlock";
-import FooterBlock from "/components/FooterBlock";
 
 import { Sen } from 'next/font/google';
 const oldFont = Sen({
