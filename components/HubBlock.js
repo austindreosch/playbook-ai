@@ -33,9 +33,9 @@ function HubBlock (){
             <a href="/api/auth/logout">Logout</a>
           </div>
           <UpdateStatsButton/>
-          <span className='inline-block'>
+          {/* <span className='inline-block'>
             <p className='p-3 px-2 font-light text-2xs'><b>auth-id:</b> {user.sub}</p>
-          </span>
+          </span> */}
         </div>
       ) : (
         <span className='p-3 px-4 bg-myblue text-white rounded-md mx-1'>
