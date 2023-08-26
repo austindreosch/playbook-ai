@@ -4,9 +4,9 @@ export default function Page(){
     return (
         <div>
             <div className="grid grid-cols-12 bg-white">
-                <div className="z-10 col-span-12 lg:col-span-5 px-5 py-5  sm:py-12 max-w-[37rem] mx-auto align-middle bg-white rounded-lg">
-                    <p className="text-5xl font-bold">Dominate your leagues <br/> and waste less time.</p> 
-                    <p className="py-2">Playing fantasy sports shouldn't feel like a full-time job. That's why we've created Playbook AI, the single dashboard for all things fantasy sports strategy which leverages the power of AI and user-customized data analytics to provide you unprecented clarity and insight.</p>
+                <div className="z-10 col-span-12 lg:col-span-5 px-5 py-5 sm:py-12 max-w-[37rem] mx-auto align-middle bg-white rounded-lg">
+                    <p className="text-5xl font-bold">Dominate your leagues <br /> and waste less time.</p>
+                    <p className="py-2">Playing fantasy sports shouldn&apos;t feel like a full-time job. That&apos;s why we&apos;ve created Playbook AI, the single dashboard for all things fantasy sports strategy which leverages the power of AI and user-customized data analytics to provide you unprecedented clarity and insight.</p>
 
 
                     <div class="mx-auto max-w-[37rem] my-6">
@@ -30,7 +30,7 @@ export default function Page(){
                             </div>
                             <div className="flex-1">
                                 <h4 className="text-lg font-medium leading-normal">Find smart trades and exploit hidden value</h4>
-                                <p className="text-gray-500 text-sm">Contrast your custom dataset against the community standard and exploit the differences. Playbook does the thinking for you and displays all your options in realtime across all your leagues, providing unprecedented clarity of all opportunity. </p>
+                                <p className="text-gray-500 text-sm">Contrast your custom dataset against the community standard and exploit the differences. Playbook does the thinking for you and displays all your options in real-time across all your leagues, providing unprecedented clarity of all opportunity.</p>
                             </div>
                             </li>
                             <li className="flex gap-4">
@@ -41,7 +41,7 @@ export default function Page(){
                             </div>
                             <div className="flex-1">
                                 <h4 className="text-lg font-medium leading-normal">Get expert analysis and data-driven suggestions</h4>
-                                <p className="text-gray-500 text-sm">Playbook makes sure you're never alone in your decision-making. Leverage our expert rankings synchronized to your league's unique dynamics as your secret weapon for consistent success.</p>
+                                <p className="text-gray-500 text-sm">Playbook makes sure you&apos;re never alone in your decision-making. Leverage our expert rankings synchronized to your league&apos;s unique dynamics as your secret weapon for consistent success.</p>
                             </div>
                             </li>
                         </ul>
@@ -60,7 +60,7 @@ export default function Page(){
 
                 <div className="col-span-7 text-center py-5 pr-5 max-w-3xl mt-3 hidden lg:block h-full relative">
                     <div className="z-0 shadow-lg">
-                        <img src="/heroimg.png" alt="" className="w-full shadow-md rounded-lg h-[40rem] min-w-fit" />
+                        <Image src="/heroimg.png" alt="Description of Image" className="w-full shadow-md rounded-lg h-[40rem] min-w-fit" layout="responsive" width={100} height={100} />
                     </div>
                 </div>
             </div>
