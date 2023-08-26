@@ -258,17 +258,17 @@ export default function ImportLeagueForm({ userId }) {
                 <div className='text-xl'><b>Select Your Team</b></div>
               </div>
               <div className={`my-auto grid grid-cols-3 gap-2 place-items-center row-span-6`}>
-                {availableTeams.map((teamName, index) => (
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedTeam(teamName)}
-                      className={`m-1.5 text-center text-sm font-bold rounded-md p-3 ${selectedTeam === teamName ? 'bg-myorange text-black hover:bg-myotherorange hover:text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
-                    >
-                      {teamName}
-                    </button>
-                  </div>
-                ))}
+              {availableTeams.map((teamName, index) => (
+                <div key={index}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTeam(teamName)}
+                    className={`m-1.5 text-center text-sm font-bold rounded-md p-3 ${selectedTeam === teamName ? 'bg-myorange text-black hover:bg-myotherorange hover:text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
+                  >
+                    {teamName}
+                  </button>
+                </div>
+              ))}
               </div>
               <div className='row-span-1 flex items-center justify-center '>
                 <button type="submit" className=" inline-flex items-center gap-1.5 rounded-lg border border-blue-500 bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-blue-700 hover:bg-blue-700 focus:ring focus:ring-blue-200 disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-300">
