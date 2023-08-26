@@ -6,7 +6,8 @@ import React from 'react';
 import UpdateStatsButton from './UpdateStatsButton';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
-
+import Image from 'next/image';
+import Link from 'next/link';
 
 function HubBlock (){
   const { user } = useUser();
@@ -25,12 +26,12 @@ function HubBlock (){
           <div className='p-3 px-4 inline-block bg-myblue text-white rounded-md mx-1'><a href="/import">Import</a></div>
           <div className='inline-block p-3 px-4 bg-myorange text-black rounded-md mx-1 align-middle mb-1'>
             <div className='grid grid-flow-col'>
-              <img  className="h-6 rounded-lg mr-2" src={user.picture} alt="" />
-              <a className='flex text-center justify-center align-middle' href="/profile">{user.nickname || user.email}</a>
+              <Image  className="h-6 rounded-lg mr-2" src={user.picture} alt="" />
+              <Link className='flex text-center justify-center align-middle' href="/profile">{user.nickname || user.email}</Link>
             </div>
           </div>
           <div className='p-3 px-4 inline-block bg-myorange text-black rounded-md mx-1'>
-            <a href="/api/auth/logout">Logout</a>
+            <Link href="/api/auth/logout">Logout</Link>
           </div>
           <UpdateStatsButton/>
           {/* <span className='inline-block'>
@@ -39,7 +40,7 @@ function HubBlock (){
         </div>
       ) : (
         <span className='p-3 px-4 bg-myblue text-white rounded-md mx-1'>
-          <a href="/api/auth/login">Login</a>
+          <Link href="/api/auth/login">Login</Link>
         </span>
       )}
 

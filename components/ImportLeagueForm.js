@@ -232,11 +232,11 @@ export default function ImportLeagueForm({ userId }) {
 
           <div className='pt-6 text-center max-w-sm'>
             <div className='bg-myorange p-2 rounded-md shadow-md'>
-              <div className="mb-2 text-xs text-back"><b>Don't have a league?</b> Try mine!</div>
-              <div className='bg-white border border-gray-200 rounded-md grid row-span-2 justify-center align-middle p-1 shadow-lg'>
-                <div className=" text-lg text-myblue"><b>8wxrswqxljaxa2tz</b></div>
-                <div className=" text-2xs text-black">The League (12 Team, Dynasty, H2H, 9CAT)</div>
-              </div>
+              <div className="mb-2 text-xs text-back"><b>Don&apos;t have a league?</b> Try mine!</div>
+                <div className='bg-white border border-gray-200 rounded-md grid row-span-2 justify-center align-middle p-1 shadow-lg'>
+                  <div className=" text-lg text-myblue"><b>8wxrswqxljaxa2tz</b></div>
+                  <div className=" text-2xs text-black">The League (12 Team, Dynasty, H2H, 9CAT)</div>
+                </div>
             </div>
           </div>
 
@@ -261,7 +261,6 @@ export default function ImportLeagueForm({ userId }) {
                 {availableTeams.map((teamName, index) => (
                   <div>
                     <button
-                      key={index}
                       type="button"
                       onClick={() => setSelectedTeam(teamName)}
                       className={`m-1.5 text-center text-sm font-bold rounded-md p-3 ${selectedTeam === teamName ? 'bg-myorange text-black hover:bg-myotherorange hover:text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
