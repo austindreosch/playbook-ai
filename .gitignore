@@ -125,5 +125,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-components/test/SportsFeedTest.js
-utilities/sportsfeed.js
