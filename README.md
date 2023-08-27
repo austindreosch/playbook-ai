@@ -12,7 +12,7 @@ Finally, on the user dashboard, I call the user league data to fetch the list of
 
 ## Feature Roadmap
 * User inputs on each player, as well as each team
-* Data analytics based on those numbers
+* Data analytics based on those inputs
 * Editable expert community rankings page
 * Trade suggestions with OpenAI integration, based on the data analytics
 * Stripe implementation for payments
