@@ -11,13 +11,14 @@ Finally, on the user dashboard, I call the user league data to fetch the list of
 
 
 ## Feature Roadmap
-• User inputs on each player, as well as each team
-• Data analytics based on those numbers
-• Editable expert community rankings page
-• Trade suggestions with OpenAI integration, based on the data analytics
-• Stripe implementation for payments
-• Other fantasy service providers
-• Other sports
+* User inputs on each player, as well as each team
+* Data analytics based on those numbers
+* Editable expert community rankings page
+* Trade suggestions with OpenAI integration, based on the data analytics
+* Stripe implementation for payments
+* Other fantasy service providers
+* Other sports
+
 
 
 
