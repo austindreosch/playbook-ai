@@ -80,7 +80,7 @@ function RosterBlockPlayerRow({ player, index }) {
                             <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>25</span>
                             <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">89</span>
                             <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
-                                <Image className='bg-gray-200 rounded-md' src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic"/>
+                                <img className='bg-gray-200 rounded-md' src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic"/>
                             </div>
                             <div className='col-span-5 ml-1 mt-1'>
                                 <div className='text-sm leading-tight'>{player.name}</div>
@@ -117,26 +117,26 @@ function RosterBlockPlayerRow({ player, index }) {
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                                 <h4>rank</h4>
-                                                <p className='text-lg' ><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank}</p>
+                                                <p className='text-lg' ><span className='text-gray-500 text-sm'>#</span>25</p>
                                             </div>
                                         </li>
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                                 <h4 >consensus</h4> 
-                                                <p className='text-lg'><span className='text-gray-500 text-sm'>#</span>{player.dynastyRank + Math.floor(Math.random() * 5 - 2)}</p>
+                                                <p className='text-lg'><span className='text-gray-500 text-sm'>#</span>{25 + Math.floor(Math.random() * 5 - 2)}</p>
                                             </div>
                                         </li>
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                             <h4 >standard</h4>
-                                            <b className=' text-lg text-mybrightorange'>{player.standardscore}</b>
+                                            <b className=' text-lg text-mybrightorange'>83</b>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div className='col-span-4 h-[10rem] py-1 pt-3 pl-1'>
-                                <RankDonut score={player.playerscore}/>
+                                <RankDonut score="89"/>
 
                                 {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
                                     <RankDonut score={player.playerscore}/>
@@ -152,13 +152,13 @@ function RosterBlockPlayerRow({ player, index }) {
                                             <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div>
                                         </div>
                                         <div className='col-span-1 ml-1 my-auto'>
-                                            <div> <span> {player.age}</span> </div>
-                                            <div> <span> {player.age + 5}</span> </div>
-                                            <div> <span> {Math.round(player.age / 10)}YR</span> </div>
-                                            <div> <span> {player.age + 10}M</span> </div>
+                                            <div> <span> {player.info.age}</span> </div>
+                                            <div> <span> {player.info.age + 5}</span> </div>
+                                            <div> <span> {Math.round(player.info.age / 10)}YR</span> </div>
+                                            <div> <span> {player.info.age + 10}M</span> </div>
                                         </div>
                                         <div className='col-span-3 flex justify-center align-middle my-auto mx-1'>
-                                            <Image  className="rounded-lg border border-gray-300 bg-gray-50 align-middle m-1" src={player.image} alt="player pic" />
+                                            <img  className="rounded-lg border border-gray-300 bg-gray-50 align-middle m-1" src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic" />
                                         </div>
                                         <div className='col-span-9 flex pr-1 '>
                                             <div className=' grid grid-flow-row align-center my-auto w-full'>

@@ -26,7 +26,8 @@ function HubBlock (){
           <div className='p-3 px-4 inline-block bg-myblue text-white rounded-md mx-1'><a href="/import">Import</a></div>
           <div className='inline-block p-3 px-4 bg-myorange text-black rounded-md mx-1 align-middle mb-1'>
             <div className='grid grid-flow-col'>
-              <Image  className="h-6 rounded-lg mr-2" src={user.picture} alt="" />
+              {/* <Image  className="h-6 rounded-lg mr-2" src={user.picture} alt="head pic" /> */}
+              <img className="h-6 rounded-lg mr-2" src={user.picture} alt="head pic"  />
               <Link className='flex text-center justify-center align-middle' href="/profile">{user.nickname || user.email}</Link>
             </div>
           </div>
