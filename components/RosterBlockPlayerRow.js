@@ -6,6 +6,7 @@ import React, { createRef, useRef, useState } from 'react';
 import RankDonut from '../components/RankDonut';
 
 import Image from 'next/image';
+import { calculateScore } from '../utilities/calculateScore';
 
 function getColorForStat(value, average) {
     // Define weights (ranges) inside the function
@@ -45,6 +46,8 @@ function RosterBlockPlayerRow({ player, index }) {
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
     const [selectedSmart, setSelectedSmart] = useState('Neutral');
 
+    const playerScore = calculateScore(player);
+
     
     const toggleCollapse = () => {
         setCollapsed(!collapsed);
@@ -78,7 +81,7 @@ function RosterBlockPlayerRow({ player, index }) {
 
                         <div className="col-span-3 grid grid-cols-8">
                             <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>25</span>
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">89</span>
+                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{playerScore}</span>
                             <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
                                 <img className='bg-gray-200 rounded-md' src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic"/>
                             </div>
@@ -184,7 +187,7 @@ function RosterBlockPlayerRow({ player, index }) {
                                                         activeTab === index ? 'bg-myblue text-white shadow-md' : ''
                                                         } hover:bg-myblue hover:text-white hover:shadow`}
                                                     >
-                                                        {tab}
+                                                        {tab}w
                                                     </a>
                                                     </li>
                                                 ))}
