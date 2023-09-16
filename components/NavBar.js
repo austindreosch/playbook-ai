@@ -32,11 +32,10 @@ function NavBar (){
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Home</a>
-                <a href="/landing" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Landing</a>
-                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Feature Roadmap</a>
-                <Link href="/about" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>About</Link>
-                <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Contact</a>
+                <Link href="/landing" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Home</Link>
+                <Link href="/about" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>How it Works</Link>
+                <Link href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Feature Roadmap</Link>
+                {/* <a href="#" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${oldFont.className}`}>Contact</a> */}
               </div>
             </div>
           </div>
