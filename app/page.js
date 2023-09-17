@@ -32,6 +32,7 @@ const aiFont = Hammersmith_One({
 
 
 
+
 export default function Home() {
 
   const router = useRouter();

@@ -24,9 +24,9 @@ export default function Page() {
     
     
     return (
-        <div>
-            <div className="grid grid-cols-12 bg-white">
-                <div className="z-10 col-span-12 lg:col-span-5 px-5 py-5 sm:py-12 max-w-[37rem] mx-auto align-middle bg-white rounded-lg">
+        <div className="flex items-center justify-center bg-white ">  
+            <div className="grid grid-cols-1 lg:grid-cols-12 bg-white gap-6">
+                    <div className="z-10 col-span-12 lg:col-span-5 px-5 py-5 sm:py-12 max-w-[37rem] mx-auto align-middle bg-white rounded-lg">
                     <p className="text-5xl font-bold">Dominate your leagues <br /> and waste less time.</p>
                     <p className="py-2">Playing fantasy sports shouldn&apos;t feel like a full-time job. That&apos;s why we&apos;ve created Playbook AI, the single dashboard for all things fantasy sports strategy which leverages the power of AI and user-customized data analytics to provide you unprecedented clarity and insight.</p>
 
@@ -82,9 +82,9 @@ export default function Page() {
                     </div>
                 </div>
 
-                <div className="col-span-7 text-center py-5 pr-5 max-w-3xl mt-3 hidden lg:block h-full relative">
-                    <div className="z-0 shadow-lg">
-                        <Image src="/heroimg.png" alt="Description of Image" className="w-full shadow-md rounded-lg h-[40rem] min-w-fit" layout="responsive" width={100} height={100} />
+                <div className="col-span-12 lg:col-span-7 text-center py-5 max-w-3xl mx-auto lg:mx-0 lg:mt-0 w-screen lg:h-auto relative">
+                    <div className="z-0 shadow-md rounded-lg ">
+                        <Image src="/heroimg.png" alt="Description of Image" className="w-full shadow-md rounded-lg object-cover min-w-fit" layout="responsive" width={100} height={100} />
                     </div>
                 </div>
             </div>
