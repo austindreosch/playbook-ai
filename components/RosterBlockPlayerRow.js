@@ -6,7 +6,7 @@ import React, { createRef, useRef, useState } from 'react';
 import RankDonut from '../components/RankDonut';
 
 import Image from 'next/image';
-import { calculateScore } from '../utilities/calculateScore';
+// import { calculateScore } from '../utilities/calculateScore';
 
 function getColorForStat(value, average) {
     // Define weights (ranges) inside the function
@@ -46,7 +46,7 @@ function RosterBlockPlayerRow({ player, index }) {
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
     const [selectedSmart, setSelectedSmart] = useState('Neutral');
 
-    const playerScore = calculateScore(player);
+    // const playerScore = calculateScore(player);
 
     
     const toggleCollapse = () => {
@@ -80,8 +80,8 @@ function RosterBlockPlayerRow({ player, index }) {
                         onClick={() => toggleCollapse()}>
 
                         <div className="col-span-3 grid grid-cols-8">
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>25</span>
-                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{playerScore}</span>
+                            <span className="col-span-1 flex-1 text-center mt-[.3rem]"><span className='text-gray-400 text-sm mx-[1px]'>#</span>{player.info.dynastyRank}</span>
+                            <span className="col-span-1 flex-1 text-center mt-[.3rem] font-bold text-mybrightorange">{player.playbookScore}</span>
                             <div className="col-span-1 h-8 w-8 inline-flex items-center justify-center mr-2 my-[3px] mx-1">
                                 <img className='bg-gray-200 rounded-md' src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic"/>
                             </div>
@@ -120,13 +120,14 @@ function RosterBlockPlayerRow({ player, index }) {
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                                 <h4>rank</h4>
-                                                <p className='text-lg' ><span className='text-gray-500 text-sm'>#</span>25</p>
+                                                <p className='text-lg' ><span className='text-gray-500 text-sm'>#</span>{player.info.dynastyRank}</p>
                                             </div>
                                         </li>
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                                 <h4 >consensus</h4> 
-                                                <p className='text-lg'><span className='text-gray-500 text-sm'>#</span>{25 + Math.floor(Math.random() * 5 - 2)}</p>
+                                                <p className='text-lg'><span className='text-gray-500 text-sm'>#</span> {player.info.dynastyRank + Math.floor(Math.random() * 11 - 5)}
+                                                </p>
                                             </div>
                                         </li>
                                         <li className=" flex justify-center items-center p-1 leading-none">
@@ -139,7 +140,7 @@ function RosterBlockPlayerRow({ player, index }) {
                                 </div>
                             </div>
                             <div className='col-span-4 h-[10rem] py-1 pt-3 pl-1'>
-                                <RankDonut score="89"/>
+                                <RankDonut score={player.playbookScore}/>
 
                                 {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
                                     <RankDonut score={player.playerscore}/>
@@ -176,24 +177,30 @@ function RosterBlockPlayerRow({ player, index }) {
                                     </div>
                                     <div className='row-span-2  text-center rounded-md'>
 
-                                        <div className=' flex justify-center middle-align bg-gray-100 rounded-md border border-gray-300 rounded-b-md h-[102%]'>
-                                            <div className="overflow-hidden rounded-md my-auto  ">
-                                                <ul className="grid items-center rounded-md gap-4 grid-flow-col font-3xs md:text-xs  font-medium   my-0.5">
-                                                {['Current', 'Last 30', 'Last 60', 'Last Season', 'Last 2 Seasons'].map((tab, index) => (
-                                                    <li key={index} className='my-auto bg-gray-200'>
-                                                    <a
-                                                        onClick={() => setActiveTab(index)}
-                                                        className={`inline-flex cursor-pointer items-center bg-gray-200 gap-2 rounded-md p-1 md:p-1.5  ${
-                                                        activeTab === index ? 'bg-myblue text-white shadow-md' : ''
-                                                        } hover:bg-myblue hover:text-white hover:shadow`}
-                                                    >
-                                                        {tab}w
-                                                    </a>
-                                                    </li>
-                                                ))}
-                                                </ul>
-                                            </div>
+                                    <div className='flex justify-center middle-align bg-gray-100 rounded-md border border-gray-300 rounded-b-md h-[102%]'>
+                                        <div className="overflow-hidden rounded-md my-auto">
+                                            <ul className="grid items-center rounded-md gap-4 grid-flow-col font-3xs md:text-xs font-medium my-0.5">
+                                                {['Player Info', 'Last 30', 'Last 60', 'Last Season', 'Last 2 Seasons'].map((tab, index) => {
+                                                    const isActive = activeTab === index;
+                                                    const disabledStyle = isActive ? '' : 'opacity-50 cursor-not-allowed';
+
+                                                    return (
+                                                        <li key={index} className='my-auto bg-gray-200'>
+                                                            <a
+                                                                onClick={isActive ? () => setActiveTab(index) : undefined}
+                                                                className={`inline-flex items-center bg-gray-200 gap-2 rounded-md p-1 md:p-1.5 ${
+                                                                    isActive ? 'bg-myblue text-white shadow-md' : ''
+                                                                } hover:bg-myblue hover:text-white hover:shadow ${disabledStyle}`}
+                                                            >
+                                                                {tab}
+                                                            </a>
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
                                         </div>
+                                    </div>
+
 
                                     </div>
                                     

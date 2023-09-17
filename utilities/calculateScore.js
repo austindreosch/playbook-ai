@@ -38,6 +38,26 @@ function modifiedSigmoid(t) {
     return 100 / (1 + Math.exp(-0.2 * t));
 }
 
+function dynastyRankBonus(rank) {
+    if (!rank) return 0;
+    const factor = 1.5;  // Decrease the factor to reduce the influence of dynasty rank
+    return factor * 20 / Math.log(rank + 1);
+}
+
+
+function ageBonus(age) {
+    if (!age) return 0;
+    // A gentle curve that starts at 10 when age is 20 and approaches 0 as age increases
+    return 10 / (age - 10);
+}
+
+function agePenalty(age) {
+    return age > 25 ? (age - 25) * 0.5 : 0;  // Only penalize after age 25 and do so lightly
+}
+
+
+
+
 
 export function calculateScore(player) {
     const stats = [
@@ -52,17 +72,22 @@ export function calculateScore(player) {
         { value: player.stats.toPerGame, average: averages.toPerGame, stdDev: stdDeviations.toPerGame }
     ];
 
-    const zScores = stats.map(stat => (stat.value - stat.average) / stat.stdDev);
+    const zScores = stats.map((stat, index) => {
+        const key = Object.keys(averages)[index];
+        return (stat.value - stat.average) / stat.stdDev * weights[key];
+    });
 
-    // Convert Z-scores to a scale
-    const normalizedScores = zScores.map(z => 50 + (z * 10)); 
-
+    const normalizedScores = zScores.map(z => 50 + (z * 10));
     const totalScore = normalizedScores.reduce((sum, score) => sum + score, 0);
-    
+
     let averageScore = totalScore / normalizedScores.length;
 
+    // Add the dynastyRank bonus and subtract age penalty
+    averageScore += dynastyRankBonus(player.info.dynastyRank);
+    averageScore -= agePenalty(player.info.age);
+
     // Apply the modified sigmoid transformation to the score
-    averageScore = modifiedSigmoid(averageScore - 50);  // Centering the averageScore
+    averageScore = modifiedSigmoid(averageScore - 48);
 
     return Math.round(averageScore);
 }

@@ -5,6 +5,8 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import React, { useCallback, useEffect, useState } from 'react';
 import RosterBlockPlayerRow from './RosterBlockPlayerRow';
 
+// import { calculateScore } from '../utilities/calculateScore';
+
 function RosterBlock() {
     const { user, isLoading } = useUser();
     const [leaguesData, setLeaguesData] = useState([]);
@@ -88,9 +90,12 @@ function RosterBlock() {
                 </div>
             </div>
                 
-            {selectedTeam && selectedTeam.players.map((player, playerIndex) => (
-                <RosterBlockPlayerRow key={playerIndex} player={player} index={playerIndex} />
+            {selectedTeam && selectedTeam.players
+                .sort((a, b) => b.playbookScore - a.playbookScore)
+                .map((player, playerIndex) => (
+                    <RosterBlockPlayerRow key={playerIndex} player={player} index={playerIndex} />
             ))}
+
         </div>
     );
     

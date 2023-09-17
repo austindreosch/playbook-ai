@@ -1,6 +1,11 @@
 import { MongoClient } from 'mongodb';
 
+import { calculateScore } from '../../../utilities/calculateScore'; // adjust the path accordingly
+
+
 const mongoUri = process.env.MONGODB_URI;
+
+
 
 // Function to connect to the MongoDB database
 async function connectToDatabase() {
@@ -127,15 +132,24 @@ export default async function handler(req, res) {
             // Assign the fetched stats to the respective players
             for (const player of myTeam.players) {
                 const specificPlayerStats = playerStats.find(s => s.info.fullName === player.name);
-            
+                        
                 if (specificPlayerStats) {
                     player.info = specificPlayerStats.info;
                     player.stats = specificPlayerStats.stats;
-                    console.log(`Found stats for: ${player.name}`);
-                } else {
+            
+                    // Calculate the score for this player and assign it
+                    player.playbookScore = calculateScore(player);
+                    
+                    console.log(`Found stats for: ${player.name}.}`);
+                  } else {
                     const defaultStats = getDefaultPlayerStats(player.name);
                     player.info = defaultStats.info;
                     player.stats = defaultStats.stats;
+                    
+                    player.playbookScore = 0;
+                    // You can also calculate a score for the default stats if needed
+                    // player.score = calculateScore(player);
+            
                     console.log(`No stats found for: ${player.name}. Using default stats.`);
                 }
             }
