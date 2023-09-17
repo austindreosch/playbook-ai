@@ -66,7 +66,7 @@ export default function Page(){
             description: "Analyze with precision. Evaluate potential trades with a comprehensive tool, gauging both opportunities and risks."
         },
         {
-            title: "Expansion MLB and NFL",
+            title: "Expansion to MLB and NFL",
             description: "Diversify your fantasy portfolio. More sports, including MLB and NFL, will be integrated for broader support."
         },
     ];

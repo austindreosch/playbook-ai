@@ -45,10 +45,10 @@ function HubBlock (){
             <Link className={`${logoFont.className} font-bold`} href="/import">Import</Link>
           </div>
           <div className='p-2 px-4 inline-block bg-myorange text-black rounded-md mx-1 my-auto'>
-            <Link className={`${logoFont.className}`} href="/rankings/dynasty">Rankings</Link>
+            <Link className={`${logoFont.className}`} href="#">Rankings</Link>
           </div>
           <div className='p-2 px-4 inline-block bg-myorange text-black rounded-md mx-1 my-auto'>
-            <Link className={`${logoFont.className}`} href="/rankings/dynasty">Settings</Link>
+            <Link className={`${logoFont.className}`} href="#">Settings</Link>
           </div>
 
           
