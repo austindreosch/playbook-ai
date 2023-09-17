@@ -3,6 +3,7 @@
 // RosterBlock.js
 import { useUser } from '@auth0/nextjs-auth0/client';
 import React, { useCallback, useEffect, useState } from 'react';
+import { ThreeCircles } from 'react-loader-spinner';
 import RosterBlockPlayerRow from './RosterBlockPlayerRow';
 
 // import { calculateScore } from '../utilities/calculateScore';
@@ -33,7 +34,20 @@ function RosterBlock() {
     }, [user]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div className='my-auto pt-32'>
+        <ThreeCircles
+            height="200"
+            width="200"
+            color="#42a9e0"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="three-circles-rotating"
+            outerCircleColor=""
+            innerCircleColor=""
+            middleCircleColor=""
+        />
+    </div>
     }
 
     if (!user) {
@@ -45,7 +59,20 @@ function RosterBlock() {
     
 
     if (!selectedLeague) {
-        return <div>Loading...</div>; // or any other appropriate placeholder
+        return <div className='my-auto pt-32'>
+            <ThreeCircles
+                height="200"
+                width="200"
+                color="#42a9e0"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="three-circles-rotating"
+                outerCircleColor=""
+                innerCircleColor=""
+                middleCircleColor=""
+            />
+        </div>
     }
 
     console.log('SELECTED LEAGUE', selectedLeague);
@@ -53,26 +80,36 @@ function RosterBlock() {
 
     
     return (
-        <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 my-2 mx-1 h-full">
+        <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 mx-1 h-full">
             {/* Component Header */}
-            <div className='flex items-center'> 
-                <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-4">{selectedTeam.teamName}</h2>
-                <h4 className='ml-3 mt-3 text-sm'>
-                {selectedLeague.leagueScoring} • {selectedLeague.leagueSport} • {selectedLeague.leagueFormat} • {selectedLeague.teams.length} Team  • {selectedLeague.leagueProvider}
-                <select
-                    id="team-selector"
-                    value={selectedLeagueIndex}
-                    onChange={(e) => setSelectedLeagueIndex(e.target.value)}
-                    className="ml-3 border rounded py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                >
-                    {leaguesData.map((league, index) => (
-                    <option key={index} value={index}>
-                        {league.leagueName}
-                    </option>
-                    ))}
-                </select>
-                </h4>
+
+
+
+            <div className='flex items-center py-2'> 
+                <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-1 mr-4">{selectedTeam.teamName}</h2>
+                <div className="flex flex-col justify-center">
+                    <div className="flex items-center ml-4">
+                        <h4 className='text-sm mb-1 mr-2'>
+                            {selectedLeague.leagueScoring} • {selectedLeague.leagueSport} • {selectedLeague.leagueFormat} • {selectedLeague.teams.length} Team  • {selectedLeague.leagueProvider}
+                        </h4>
+                        <select
+                            id="team-selector"
+                            value={selectedLeagueIndex}
+                            onChange={(e) => setSelectedLeagueIndex(e.target.value)}
+                            className="border ml-4 rounded py-1 mb-2 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                            {leaguesData.map((league, index) => (
+                                <option key={index} value={index}>
+                                    {league.leagueName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
             </div>
+
+
+
     
             {/* Table Head */}
             <div className="bg-black text-white text-xs py-[3px] rounded-sm grid grid-cols-[3fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] mb-1 pr-1">

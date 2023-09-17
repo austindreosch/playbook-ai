@@ -1,12 +1,12 @@
 import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { Inter } from 'next/font/google';
+import { Fira, Fira_Sans, Inter, Libre_Franklin } from 'next/font/google';
 import './globals.css';
 
 import FooterBlock from "/components/FooterBlock";
 
 import NavBar from '../components/NavBar';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], weight: '400', display: 'swap' })
 
 export const metadata = {
   title: 'Create Next App',

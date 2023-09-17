@@ -1,6 +1,6 @@
 'use client'
 
-import { faCalendarDays, faClock, faSackDollar, faSliders } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faClock, faFlag, faForward, faSackDollar, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { createRef, useRef, useState } from 'react';
 import RankDonut from '../components/RankDonut';
@@ -44,7 +44,7 @@ function RosterBlockPlayerRow({ player, index }) {
     const [activeTab, setActiveTab] = useState(0); // each player starts with tab 0 (current season) active
     const [selectedFavor, setSelectedFavor] = useState('Neutral');
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
-    const [selectedSmart, setSelectedSmart] = useState('Neutral');
+    const [selectedSmart, setSelectedInjuryProne] = useState('Neutral');
 
     // const playerScore = calculateScore(player);
 
@@ -133,14 +133,14 @@ function RosterBlockPlayerRow({ player, index }) {
                                         <li className=" flex justify-center items-center p-1 leading-none">
                                             <div>
                                             <h4 >standard</h4>
-                                            <b className=' text-lg text-mybrightorange'>83</b>
+                                            <b className=' text-lg text-mybrightorange'>{player.playbookScore}</b>
                                             </div>
-                                        </li>
+                                        </li> 
                                     </ul>
                                 </div>
                             </div>
                             <div className='col-span-4 h-[10rem] py-1 pt-3 pl-1'>
-                                <RankDonut score={player.playbookScore}/>
+                                <RankDonut score={player.playbookScore} age={player.info.age} dynastyRank={player.info.dynastyRank}/>
 
                                 {/* <div className=' bg-white rounded-lg py-1 border border-gray-200 shadow-sm align-middle justify-center h-[97%] m-1 mt-[.3rem]'>
                                     <RankDonut score={player.playerscore}/>
@@ -148,28 +148,37 @@ function RosterBlockPlayerRow({ player, index }) {
                             </div>
                             <div className='col-span-12  ml-1 m-1 max-h-[9.2rem] '>
                                 <div className=' grid grid-rows-8  bg-white  rounded-lg  border border-gray-200 shadow-md h-full '>
-                                    <div className='grid grid-cols-15 row-span-6 pl-2 h-full text-2xs '>
+                                    <div className='grid grid-cols-21 row-span-6 pl-2 h-full text-2xs text-right'>
                                         <div className='col-span-2 my-auto '>
                                             <div> <FontAwesomeIcon icon={faCalendarDays} /> <b className='text-center ml-0.5'>AGE</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faClock} /> <b className='text-center'>MINS</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>DEAL</b>  </div>
-                                            <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div>
+                                            <div> <FontAwesomeIcon icon={faClock} /> <b className='text-center'>MIN</b>  </div>
+                                            <div> <FontAwesomeIcon icon={faForward} /> <b className='text-center '>GP</b>  </div>
+                                            <div> <FontAwesomeIcon icon={faFlag} /> <b className='text-center '>INJ</b>  </div>
+                                            {/* <div> <FontAwesomeIcon icon={faSackDollar} /> <b className='text-center '>SAL</b>  </div> */}
                                         </div>
-                                        <div className='col-span-1 ml-1 my-auto'>
-                                            <div> <span> {player.info.age}</span> </div>
-                                            <div> <span> {player.info.age + 5}</span> </div>
-                                            <div> <span> {Math.round(player.info.age / 10)}YR</span> </div>
-                                            <div> <span> {player.info.age + 10}M</span> </div>
+                                        <div className='col-span-2 ml-1 my-auto'>
+                                            <div className='flex justify-center items-center'> <span > {player.info.age}</span> </div>
+                                            <div className='flex justify-center items-center'> <span> {player.info.minPerGame}</span> </div>
+                                            <div className='flex justify-center items-center'> <span> {player.stats.gamesPlayed}</span> </div>
+                                            <div className='flex justify-center items-center'> <span>  {player.info.injStatus && player.info.injStatus.injuryDescription
+                                                ? <div style={{ width: '27px', height: '15px', backgroundColor: 'red', borderRadius: '5px' }}></div>
+                                                : <div style={{ width: '27px', height: '16px', backgroundColor: 'lightgreen', borderRadius: '5px' }}></div>}
+                                            </span> </div>
                                         </div>
-                                        <div className='col-span-3 flex justify-center align-middle my-auto mx-1'>
-                                            <img  className="rounded-lg border border-gray-300 bg-gray-50 align-middle m-1" src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} alt="player pic" />
+                                        <div className="col-span-5 w-24 h-24 overflow-hidden rounded-lg border border-gray-200 bg-gray-50 align-middle m-2 mx-4">
+                                            <img 
+                                                className="w-full h-full object-cover object-center" 
+                                                src={player.info.img ? player.info.img : 'https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-512x488-rddkk3u9.png'} 
+                                                alt="player pic" 
+                                            />
                                         </div>
-                                        <div className='col-span-9 flex pr-1 '>
+
+                                        <div className='col-span-12 flex pr-1 mr-2 '>
                                             <div className=' grid grid-flow-row align-center my-auto w-full'>
 
                                                 {renderButtonGroup(['Favor', 'Neutral', 'Dislike'], selectedFavor, setSelectedFavor)}
                                                 {renderButtonGroup(['Faith', 'Neutral', 'Doubt'], selectedFaith, setSelectedFaith)}
-                                                {renderButtonGroup(['Smart', 'Neutral', 'Dumb'], selectedSmart, setSelectedSmart)}
+                                                {renderButtonGroup(['Prone', 'Neutral', 'Ironman'], selectedSmart, setSelectedInjuryProne)}
 
 
                                             </div>

@@ -23,6 +23,7 @@ export default async function handler(req, res) {
         //     'force': 'true',
         // });
         // const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/${season}/player_stats_totals.json`;
+
         const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/2022-2023-regular/player_stats_totals.json`
 
         const fetchOptions = {
@@ -50,6 +51,7 @@ export default async function handler(req, res) {
             img: playerStats.player.officialImageSrc,
             pos: playerStats.player.primaryPosition,
             injStatus: playerStats.player.currentInjury,
+            minPerGame: parseFloat((playerStats.stats.miscellaneous.minSecondsPerGame / 60).toFixed(1)),
             },
             stats: {
             gamesPlayed: playerStats.stats.gamesPlayed,

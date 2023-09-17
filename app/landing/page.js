@@ -1,7 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { Figtree, Lexend_Deca } from 'next/font/google';
+const oldFont = Lexend_Deca({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
+import { Bai_Jamjuree, Do_Hyeon, Hammersmith_One, Homenaje, Major_Mono_Display, Titillium_Web } from 'next/font/google';
+const logoFont = Titillium_Web({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
+const aiFont = Hammersmith_One({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function Page() {
     

@@ -5,21 +5,29 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import { Oxanium, Sen } from 'next/font/google';
+import { ThreeCircles } from 'react-loader-spinner';
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
 
-const oldFont = Sen({
-  weight: '700',
+import { Figtree, Lexend_Deca } from 'next/font/google';
+const oldFont = Lexend_Deca({
+  weight: '400',
   subsets: ['latin'],
   display: 'swap',
-});
+})
 
-const logoFont = Oxanium({
+import { Bai_Jamjuree, Do_Hyeon, Hammersmith_One, Homenaje, Major_Mono_Display, Titillium_Web } from 'next/font/google';
+const logoFont = Titillium_Web({
   weight: '600',
   subsets: ['latin'],
   display: 'swap',
-});
+})
+const aiFont = Hammersmith_One({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 
 
@@ -35,7 +43,20 @@ export default function Home() {
     }
   }, [isLoading, user, router]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
+      <ThreeCircles
+          height="200"
+          width="200"
+          color="#42a9e0"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="three-circles-rotating"
+          outerCircleColor=""
+          innerCircleColor=""
+          middleCircleColor=""
+      />
+    </div>
   if (error) return <div>{error.message}</div>;
 
   return (

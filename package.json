@@ -36,6 +36,7 @@
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "saslprep": "^1.0.3",
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "3.3.3"
