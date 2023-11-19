@@ -9,6 +9,7 @@ import { ThreeCircles } from 'react-loader-spinner';
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
+import RosterBlockLeague from "../components/RosterBlockLeague";
 
 import { Figtree, Lexend_Deca } from 'next/font/google';
 const oldFont = Lexend_Deca({
@@ -70,6 +71,9 @@ export default function Home() {
         <div className="lg:col-span-12 col-span-full max-w-[900px] m-auto">
           <RosterBlock />
         </div>
+        {/* <div className="lg:col-span-6 col-span-full max-w-[900px] m-auto">
+          <RosterBlockLeague />
+        </div> */}
       </div>
     </div>
   ));

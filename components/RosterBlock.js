@@ -82,9 +82,6 @@ function RosterBlock() {
     return (
         <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 mx-1 h-full">
             {/* Component Header */}
-
-
-
             <div className='flex items-center py-2'> 
                 <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-1 mr-4">{selectedTeam.teamName}</h2>
                 <div className="flex flex-col justify-center">

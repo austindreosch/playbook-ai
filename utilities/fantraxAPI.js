@@ -43,7 +43,7 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
       axios.get(playerDataURL)
     ]);
 
-    const rostersData = rostersResponse.data;
+    const rostersData = rostersResponse.data.rosters; // Adjusted to access the 'rosters' property
     const playerDataMap = playerDataResponse.data;
 
     const leagueData = {
@@ -59,45 +59,48 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
       leagueInfo: {},
       teams: []
     };
-     //array with unrostered players
-    leagueData.leagueInfo = await getLeagueInfo(providerLeagueId); //object with roster size, active roster size, scoring system etc
+
+    // Assuming getLeagueInfo function returns the league information correctly
+    leagueData.leagueInfo = await getLeagueInfo(providerLeagueId);
 
     for (let teamId in rostersData) {
-      const teamData = rostersData[teamId];
-      const players = [];
+      if (rostersData.hasOwnProperty(teamId)) {
+        const teamData = rostersData[teamId];
+        const players = [];
 
-
-      // If rosterItems contains player details directly:
-      teamData.rosterItems.forEach(item => {
-        const playerData = playerDataMap[item.id];
-        if (playerData) {
-          const cleanedName = playerData.name.split(', ').reverse().join(' ');
-          // Create a simplified player object and add it to the players array
-          players.push({
-            fantraxId: playerData.fantraxId,
-            name: cleanedName,
-            position: playerData.position,
-            team: playerData.team,
-            rotowireId: playerData.rotowireId,
+        // Check if rosterItems is defined and is an array
+        if (Array.isArray(teamData.rosterItems)) {
+          teamData.rosterItems.forEach(item => {
+            const playerData = playerDataMap[item.id];
+            if (playerData) {
+              const cleanedName = playerData.name.split(', ').reverse().join(' ');
+              players.push({
+                fantraxId: playerData.fantraxId,
+                name: cleanedName,
+                position: playerData.position,
+                team: playerData.team,
+                rotowireId: playerData.rotowireId,
+              });
+            }
           });
         }
-      });
 
-      leagueData.teams.push({
-        teamId: teamId,
-        teamName: teamData.teamName,
-        players: players
-      });
+        leagueData.teams.push({
+          teamId: teamId,
+          teamName: teamData.teamName,
+          players: players
+        });
+      }
     }
 
-    // console.log(leagueData);
     return leagueData;
 
   } catch (error) {
     console.error("Error fetching and processing league data:", error);
     throw error;
   }
-}
+};
+
 
 
 
@@ -148,13 +151,12 @@ const generatePositionArray = (positionConstraints) => {
 
 // only needs the leagueId and the leagueName then calls the fantrax api and gets a list of the team names and their teamIds
 
-export const  getLeagueDataForImport = async (leagueId, leagueName, provider) => {
+export const getLeagueDataForImport = async (leagueId, leagueName, provider) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
 
-  
   try {
     const rostersResponse = await axios.get(retrieveRostersURL);
-    const rostersData = rostersResponse.data;
+    const rostersData = rostersResponse.data.rosters; // Adjusted to access the 'rosters' property
 
     const leagueData = {
       provider: provider,
@@ -165,20 +167,27 @@ export const  getLeagueDataForImport = async (leagueId, leagueName, provider) =>
     };
 
     for (let teamId in rostersData) {
-      const teamData = rostersData[teamId];
-
-      leagueData.teams.push({
-        teamId: teamId,
-        teamName: teamData.teamName
-      });
+      if (rostersData.hasOwnProperty(teamId)) {
+        const teamData = rostersData[teamId];
+        leagueData.teams.push({
+          teamId: teamId,
+          teamName: teamData.teamName,
+          rosterItems: teamData.rosterItems.map(item => ({ 
+            id: item.id, 
+            position: item.position, 
+            status: item.status 
+          }))
+        });
+      }
     }
 
-    console.log(leagueData);
+    console.log("formattedLeagueData: ", leagueData);
     return leagueData;
 
   } catch (error) {
     console.error("Error fetching and processing league data:", error);
     throw error;
   }
-}
+};
+
 
