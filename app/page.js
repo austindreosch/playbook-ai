@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 
 import { Oxanium, Sen } from 'next/font/google';
+import Link from 'next/link';
 import { ThreeCircles } from 'react-loader-spinner';
 import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
@@ -39,48 +40,26 @@ export default function Home() {
 
   const router = useRouter();
   // const { user, error, isLoading } = useUser();
-  const { user, isLoading: isLoadingUser } = useUser();
-  
+  const { user, isLoading } = useUser();
   const [hasLeagues, setHasLeagues] = useState(false);
-  const [isLoadingLeagues, setIsLoadingLeagues] = useState(true);
-  const [loadLeaguesError, setLoadLeaguesError] = useState(null);
-
   
   useEffect(() => {
-    if (!isLoadingUser && user) {
-      // Example API call to check for leagues
-    
-      fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`)
-        .then(response => {
-          if (!response.ok) {
-            if (response.status === 404) {
-              throw new Error('No leagues found');
-            } else {
-              throw new Error('Error loading leagues');
-            }
-          }
-          return response.json();
-        })
-        .then(leagues => {
-          if (leagues.length > 0) {
-            setHasLeagues(true);
-            console.log("HAS LEAGUES");
-            console.log("RESPONSE:", response);
-          }
-          setIsLoadingLeagues(false);
-        })
-        .catch(error => {
-          console.error('Fetch leagues error:', error);
-          setLoadLeaguesError(error.message);
-          setIsLoadingLeagues(false);
-        });
-    } else if (!user) {
-      router.push('/landing');
+    if (!isLoading && user) {
+      fetchLeagues();
     }
-  }, [isLoadingUser, user, router]);
+  }, [user, isLoading]);
 
-  if (isLoadingUser || isLoadingLeagues) {
-    return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
+  const fetchLeagues = async () => {
+    try {
+      const res = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`);
+      const leagues = await res.json();
+      setHasLeagues(leagues.length > 0);
+    } catch (error) {
+      console.error('Fetch leagues error:', error);
+    }
+  };
+
+  if (isLoading || hasLeagues === null) return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
       <ThreeCircles
           height="200"
           width="200"
@@ -93,37 +72,14 @@ export default function Home() {
           innerCircleColor=""
           middleCircleColor=""
       />
-    </div>;
-  }
+    </div>
 
-  if (loadLeaguesError) {
-    return <div>Error: {loadLeaguesError}</div>;
-  }
+  if (!hasLeagues) return <div className='flex justify-center content-align my-auto mx-auto pb-64 h-screen'>
+    <div className='p-2 px-4 inline-block bg-myblue text-white rounded-md mx-1 my-auto'>
+      <Link className={`${logoFont.className} font-bold`} href="/import">No leagues found. Click here to import a league.</Link>
+    </div>
 
-  if (!hasLeagues) {
-    return <div className='flex justify-center items-center h-screen'>
-      <p>No leagues found. Please import a league to start.</p>
-    </div>;
-  }
-
-
-
-
-
-  // if (isLoadingUser) return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
-  //     <ThreeCircles
-  //         height="200"
-  //         width="200"
-  //         color="#42a9e0"
-  //         wrapperStyle={{}}
-  //         wrapperClass=""
-  //         visible={true}
-  //         ariaLabel="three-circles-rotating"
-  //         outerCircleColor=""
-  //         innerCircleColor=""
-  //         middleCircleColor=""
-  //     />
-  //   </div>
+  </div>;
 
 
   return (
@@ -136,6 +92,7 @@ export default function Home() {
         <div className="lg:col-span-12 col-span-full max-w-[900px] m-auto">
           <RosterBlock />
         </div>
+
         {/* <div className="lg:col-span-6 col-span-full max-w-[900px] m-auto">
           <RosterBlockLeague />
         </div> */}
