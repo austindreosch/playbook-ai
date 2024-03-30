@@ -39,7 +39,7 @@ export default function Home() {
 
   const router = useRouter();
   // const { user, error, isLoading } = useUser();
-  const { user, error: authError, isLoading: isLoadingUser } = useUser();
+  const { user, isLoading: isLoadingUser } = useUser();
   
   const [hasLeagues, setHasLeagues] = useState(false);
   const [isLoadingLeagues, setIsLoadingLeagues] = useState(true);
@@ -65,7 +65,7 @@ export default function Home() {
           if (leagues.length > 0) {
             setHasLeagues(true);
             console.log("HAS LEAGUES");
-            console.log(response);
+            console.log("RESPONSE:", response);
           }
           setIsLoadingLeagues(false);
         })
@@ -96,8 +96,8 @@ export default function Home() {
     </div>;
   }
 
-  if (authError || loadLeaguesError) {
-    return <div>Error: {authError?.message || loadLeaguesError}</div>;
+  if (loadLeaguesError) {
+    return <div>Error: {loadLeaguesError}</div>;
   }
 
   if (!hasLeagues) {
