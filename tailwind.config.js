@@ -82,6 +82,7 @@ module.exports = {
         mymidblue: '#3C6997',
         mydarkblue: '#094074',
         mybiege: '#E6C79C',
+        mydarktext: '#222222'
 
       }
     },

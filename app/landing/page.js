@@ -27,8 +27,8 @@ export default function Page() {
         <div className="flex items-center justify-center bg-white ">  
             <div className="grid grid-cols-1 lg:grid-cols-12 bg-white gap-6">
                     <div className="z-10 col-span-12 lg:col-span-5 px-5 py-5 sm:py-12 max-w-[37rem] mx-auto align-middle bg-white rounded-lg">
-                    <p className="text-5xl font-bold">Dominate your leagues <br /> and waste less time.</p>
-                    <p className="py-2">Playing fantasy sports shouldn&apos;t feel like a full-time job. That&apos;s why we&apos;ve created Playbook AI, the single dashboard for all things fantasy sports strategy which leverages the power of AI and user-customized data analytics to provide you unprecedented clarity and insight.</p>
+                    <p className="text-5xl font-bold text-mydarktext">Dominate your leagues <br /> and waste less time.</p>
+                    <p className="py-2 text-mydarktext">Playing fantasy sports shouldn&apos;t feel like a full-time job. That&apos;s why we&apos;ve created Playbook AI, the single dashboard for all things fantasy sports strategy which leverages the power of AI and user-customized data analytics to provide you unprecedented clarity and insight.</p>
 
 
                     <div class="mx-auto max-w-[37rem] my-6">
@@ -40,7 +40,7 @@ export default function Page() {
                                 </svg>
                             </div>
                             <div className="flex-1">
-                                <h4 className="text-lg font-medium leading-normal">Customize analysis to your own value system</h4>
+                                <h4 className="text-lg font-medium leading-normal text-mydarktext">Customize analysis to your own value system</h4>
                                 <p className="text-gray-500 text-sm">Have a good feeling about a player? Prefer young players for a rebuild? Does an opposing owner seem a little too eager to make a good player available? Playbook tracks every piece of data you feed it and defines a powerful customized dataset.</p>
                             </div>
                             </li>
@@ -51,7 +51,7 @@ export default function Page() {
                                 </svg>
                             </div>
                             <div className="flex-1">
-                                <h4 className="text-lg font-medium leading-normal">Find smart trades and exploit hidden value</h4>
+                                <h4 className="text-lg font-medium leading-normal text-mydarktext">Find smart trades and exploit hidden value</h4>
                                 <p className="text-gray-500 text-sm">Contrast your custom dataset against the community standard and exploit the differences. Playbook does the thinking for you and displays all your options in real-time across all your leagues, providing unprecedented clarity of all opportunity.</p>
                             </div>
                             </li>
@@ -62,7 +62,7 @@ export default function Page() {
                                 </svg>
                             </div>
                             <div className="flex-1">
-                                <h4 className="text-lg font-medium leading-normal">Get expert analysis and data-driven suggestions</h4>
+                                <h4 className="text-lg font-medium leading-normal text-mydarktext">Get expert analysis and data-driven suggestions</h4>
                                 <p className="text-gray-500 text-sm">Playbook makes sure you&apos;re never alone in your decision-making. Leverage our expert rankings synchronized to your league&apos;s unique dynamics as your secret weapon for consistent success.</p>
                             </div>
                             </li>
