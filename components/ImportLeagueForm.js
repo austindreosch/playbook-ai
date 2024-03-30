@@ -246,7 +246,6 @@ export default function ImportLeagueForm({ userId }) {
   );
   } else if (step === 'teamSelect') {
     // SECOND FORM COMPONENT //////////////////////////////
-    // SECOND FORM COMPONENT //////////////////////////////
     
     return (
       <div className="mx-auto bg-white p-6 w-[35rem] rounded-lg shadow-md h-[37rem]">

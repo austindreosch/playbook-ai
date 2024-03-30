@@ -26,6 +26,7 @@ const aiFont = Hammersmith_One({
 const inter = Inter({ subsets: ['latin'], weight: '400', display: 'swap' })
 
 
+
 function NavBar (){
   const { user } = useUser();
   console.log('User: ',user);
@@ -67,11 +68,16 @@ function NavBar (){
                                     <div className='p-3 px-1 inline-block text-black rounded-md'>
                                         <Link href="/api/auth/logout"><FontAwesomeIcon icon={faRightFromBracket} /></Link>
                                     </div>
+
+
+
                                 </>
                             ) : (
                                 <div className='p-3 px-6 bg-myblue text-white font-bold tracking rounded-md mx-1'>
                                     <Link href="/api/auth/login">Login</Link>
                                 </div>
+
+
                             )}
 
                         </div>

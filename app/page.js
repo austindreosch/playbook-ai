@@ -2,7 +2,8 @@
 
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 import { Oxanium, Sen } from 'next/font/google';
 import { ThreeCircles } from 'react-loader-spinner';
@@ -37,15 +38,49 @@ const aiFont = Hammersmith_One({
 export default function Home() {
 
   const router = useRouter();
-  const { user, error, isLoading } = useUser();
+  // const { user, error, isLoading } = useUser();
+  const { user, error: authError, isLoading: isLoadingUser } = useUser();
+  
+  const [hasLeagues, setHasLeagues] = useState(false);
+  const [isLoadingLeagues, setIsLoadingLeagues] = useState(true);
+  const [loadLeaguesError, setLoadLeaguesError] = useState(null);
 
+  
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (!isLoadingUser && user) {
+      // Example API call to check for leagues
+    
+      fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`)
+        .then(response => {
+          if (!response.ok) {
+            if (response.status === 404) {
+              throw new Error('No leagues found');
+            } else {
+              throw new Error('Error loading leagues');
+            }
+          }
+          return response.json();
+        })
+        .then(leagues => {
+          if (leagues.length > 0) {
+            setHasLeagues(true);
+            console.log("HAS LEAGUES");
+            console.log(response);
+          }
+          setIsLoadingLeagues(false);
+        })
+        .catch(error => {
+          console.error('Fetch leagues error:', error);
+          setLoadLeaguesError(error.message);
+          setIsLoadingLeagues(false);
+        });
+    } else if (!user) {
       router.push('/landing');
     }
-  }, [isLoading, user, router]);
+  }, [isLoadingUser, user, router]);
 
-  if (isLoading) return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
+  if (isLoadingUser || isLoadingLeagues) {
+    return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
       <ThreeCircles
           height="200"
           width="200"
@@ -58,8 +93,38 @@ export default function Home() {
           innerCircleColor=""
           middleCircleColor=""
       />
-    </div>
-  if (error) return <div>{error.message}</div>;
+    </div>;
+  }
+
+  if (authError || loadLeaguesError) {
+    return <div>Error: {authError?.message || loadLeaguesError}</div>;
+  }
+
+  if (!hasLeagues) {
+    return <div className='flex justify-center items-center h-screen'>
+      <p>No leagues found. Please import a league to start.</p>
+    </div>;
+  }
+
+
+
+
+
+  // if (isLoadingUser) return <div className='flex justify-center content-align my-auto mx-auto pt-48 h-screen'>
+  //     <ThreeCircles
+  //         height="200"
+  //         width="200"
+  //         color="#42a9e0"
+  //         wrapperStyle={{}}
+  //         wrapperClass=""
+  //         visible={true}
+  //         ariaLabel="three-circles-rotating"
+  //         outerCircleColor=""
+  //         innerCircleColor=""
+  //         middleCircleColor=""
+  //     />
+  //   </div>
+
 
   return (
     user && (
