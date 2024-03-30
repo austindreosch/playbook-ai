@@ -2,16 +2,18 @@
 
 // RosterBlock.js
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 import RosterBlockPlayerRow from './RosterBlockPlayerRow';
-
 // import { calculateScore } from '../utilities/calculateScore';
 
 function RosterBlock() {
     const { user, isLoading } = useUser();
     const [leaguesData, setLeaguesData] = useState([]);
     const [selectedLeagueIndex, setSelectedLeagueIndex] = useState(0); // Defaults to the first league
+
+    const [noLeagues, setNoLeagues] = useState(false);
 
     useEffect(() => {
       const fetchLeaguesData = async () => {
@@ -21,17 +23,32 @@ function RosterBlock() {
           const response = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`);
           if (response.ok) {
             const leagues = await response.json();
+            console.log ('LEAGUES RES:', leagues)
+            // if (leagues.length === 0){
+            //     console.log("ZERO LEAGUES ");
+            // }
             setLeaguesData(leagues);
           } else {
+            console.log("ZERO LEAGUES OR ERROR ");
+            setNoLeagues(true);
             console.error('Failed to fetch leagues data');
           }
         } catch (error) {
+          
           console.error('Error fetching leagues data:', error);
         }
       };
 
       fetchLeaguesData();
     }, [user]);
+
+
+
+    if (!isLoading && noLeagues === true){
+        return <div className='p-2 px-4 inline-block bg-myblue text-white rounded-md mx-1 my-auto mt-48'>
+            <Link className={`font-bold`} href="/import">No leagues found. Please import league to continue.</Link>
+        </div>
+    }
 
     if (isLoading) {
         return <div className='my-auto pt-32'>
