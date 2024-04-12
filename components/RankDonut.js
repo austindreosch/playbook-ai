@@ -16,7 +16,6 @@ function calculateValueBasedOnAgeAndRank(age, dynastyRank) {
   let rankFactor = (101 - dynastyRank) / 100;
 
   // Here, we'll balance age and rank for potential value.
-  // Age plays a more significant role in decreasing potential for older players.
   let potentialValue = age < peakPerformanceAge ? rankFactor : rankFactor * ageFactor;
 
   // Production is the inverse of potential.
@@ -27,13 +26,6 @@ function calculateValueBasedOnAgeAndRank(age, dynastyRank) {
       potential: Math.round(potentialValue * 100)
   };
 }
-
-
-
-
-
-
-
 
 
 export function RankDonut({score, age, dynastyRank}) {
@@ -66,18 +58,6 @@ export function RankDonut({score, age, dynastyRank}) {
   };
   
   return (
-    // if no white box //////////////////////////
-    // 
-    // <div className='h-[95%] mt-2 w-full flex align-middle justify-center relative'> {/* Add 'relative' here */}
-    //   <Doughnut data={data} options={options}/>
-    //   <h1 
-    //     className='absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-4xl font-bold text-mybrightorange stroke-slate-800'
-    //   >
-    //     {score}
-    //   </h1>
-    // </div>
-
-
     <div className='w-full h-full flex align-middle justify-center relative'> {/* Add 'relative' here */}
       <Doughnut data={data} options={options}/>
       <h1 
@@ -85,10 +65,8 @@ export function RankDonut({score, age, dynastyRank}) {
           style={{ zIndex: '900 !important' }}
       >
           {score}
-      </h1>
+    </h1>
     </div>
-
-
   )
 }
 

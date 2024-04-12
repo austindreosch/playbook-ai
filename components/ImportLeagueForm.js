@@ -267,8 +267,6 @@ export default function ImportLeagueForm({ userId }) {
       </div>
     )
   }
-
-
 }
 
 

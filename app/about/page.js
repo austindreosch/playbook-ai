@@ -37,9 +37,14 @@ export default function Page(){
             imageUrl: "https://i.imgur.com/aKz4zFJ.jpg"
         },
         {
-            title: "Cloud Data Caching and Synchronization",
+            title: "Cloud Data Caching",
             description: "Our infrastructure employs MongoDB to handle data synchronization and caching. This guarantees a resilient and scalable data management solution. Data is periodically cached to reduce server load, leading to quicker response times and a smoother user experience.",
             imageUrl: "https://i.imgur.com/YbjXYk5.jpg"
+        },
+        {
+            title: "Secure User Authentication",
+            description: "Our application incorporates Auth0 for robust, flexible authentication solutions. This integration allows seamless user authentication secure across different platforms with support for social logins and multi-factor authentication.",
+            imageUrl: "https://images.ctfassets.net/23aumh6u8s0i/5sx3XSZAfFCykArFGXcx7O/f963e7e4555ece8d63a32a19fc614973/auth0-by-okta-hero.jpg"
         },
         // Add more features as necessary
     ];
@@ -72,17 +77,11 @@ export default function Page(){
     ];
     
 
-
-
-
-
-
-
     return (
         <div className="p-6 ">
             <h2 className="text-2xl font-bold text-center mb-8">Feature Overview</h2>
             <div className="flex flex-col justify-center items-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
                     {features.map((feature, index) => (
                         <FeatureCard key={index} {...feature} />
                     ))}
