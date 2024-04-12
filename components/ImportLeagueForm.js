@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { getLeagueData, getLeagueDataForImport } from '../utilities/fantraxAPI';
 
+/* -----------------------------------------------------------
+    MULTISTEP FORM COMPONENT FOR IMPORTING LEAGUES
+----------------------------------------------------------- */
+
 export default function ImportLeagueForm({ userId }) {
   const { user } = useUser();
   const router = useRouter();
@@ -21,35 +25,30 @@ export default function ImportLeagueForm({ userId }) {
   const [availableTeams, setAvailableTeams] = useState([]);
   const [leagueTeamCount, setLeagueTeamCount] = useState(null);
 
-
-
-  // handle
+ /* --------------------------------------------------------------------------------------
+    Import all league data and cache in state for the next step
+ --------------------------------------------------------------------------------------- */
   const handleImportLeague = async (e) => {
     e.preventDefault();
     try {
       const leagueInfo = await getLeagueDataForImport(providerLeagueId, leagueName, selectedProvider);
       setLeagueData(leagueInfo);
-  
-      const teamCount = leagueInfo.leagueTeamCount;
       setLeagueTeamCount(teamCount);
-      console.log(leagueTeamCount);
-
       const teams = leagueInfo.teams;
       const teamNames = [];
-  
       for (const team of teams) {
         teamNames.push(team.teamName);
       }
       setAvailableTeams(teamNames);
-  
       setStep('teamSelect');
     } catch (error) {
       console.error(error);
     }
   };
-  
 
-  
+  /* -------------------------------------------------------------------------------------------------------------------
+    Call getLeagueData() utility function with the gathered parameters, and save instance of the league to the database
+  ---------------------------------------------------------------------------------------------------------------------- */
   const handleTeamSelection = async (e) => {
     e.preventDefault();
 
@@ -57,22 +56,14 @@ export default function ImportLeagueForm({ userId }) {
     const userAuthId = user.sub;
     const uniqueLeagueId = `${userAuthId}_${providerLeagueId}`;
 
-
-    // call getLeagueData with the above parameters
     let data = await getLeagueData(uniqueLeagueId, providerLeagueId, selectedTeamId, userAuthId, leagueName, selectedProvider, selectedFormat, selectedSport, selectedScoring);
-
-    console.log(data);
-
-
-    // Save the league to the database
     try {
       const response = await fetch('/api/importleague', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data), // Assuming data is in the correct format
+        body: JSON.stringify(data), 
       });
-      
-      router.push('/'); // this should be in the if statement below
+      router.push('/'); 
   
       if (response.ok) {
         console.log('League saved successfully!');
@@ -82,11 +73,9 @@ export default function ImportLeagueForm({ userId }) {
     } catch (error) {
       console.error('An error occurred while saving the league:', error);
     }
-    // redirect to the dashboard
-
   };
   
-
+  // first phase of the form, where user inputs league info (sport, provider, league name, league ID, scoring, format)
   if (step === 'initial') {
     return (
       <div className="mx-auto max-w-sm bg-white p-5 px-8 w-[22rem] rounded-lg shadow-md h-[48.5rem]">
@@ -150,9 +139,6 @@ export default function ImportLeagueForm({ userId }) {
               </button>
             </div>
 
-          
-
-
             {/* question 3 */}
             <label htmlFor="leagueName" className=" mt-2 block text-sm font-medium text-gray-700 ">League Name</label>
             <input 
@@ -195,7 +181,6 @@ export default function ImportLeagueForm({ userId }) {
 
               </div>
 
-
             {/* question 6 */}
             <label htmlFor="format" className=" block text-sm font-medium text-gray-700">League Format</label>
 
@@ -216,9 +201,7 @@ export default function ImportLeagueForm({ userId }) {
               </button>
             </div>
 
-          
-              
-            {/* button */}
+            {/* complete form button */}
             <div className='pt-7'>
               <button type="submit" className=" inline-flex items-center gap-1.5 rounded-lg border border-primary-500 bg-myblue px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-primary-700 hover:bg-primary-700 focus:ring focus:ring-primary-200 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-primary-300">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
@@ -229,7 +212,7 @@ export default function ImportLeagueForm({ userId }) {
               </button>
             </div>
           </form>
-
+          {/* Test User Helper */}
           <div className='pt-6 text-center max-w-sm'>
             <div className='bg-myorange p-2 rounded-md shadow-md'>
               <div className="mb-2 text-xs text-back"><b>Don&apos;t have a League ID?</b> Try mine!</div>
@@ -245,7 +228,7 @@ export default function ImportLeagueForm({ userId }) {
 
   );
   } else if (step === 'teamSelect') {
-    // SECOND FORM COMPONENT //////////////////////////////
+    // second phase of the form, where all teams are loaded for user choice before final import
     
     return (
       <div className="mx-auto bg-white p-6 w-[35rem] rounded-lg shadow-md h-[37rem]">
@@ -280,13 +263,8 @@ export default function ImportLeagueForm({ userId }) {
               </div>
             </div>
           </form>
-        
         </div>
       </div>
-
-
-
-      
     )
   }
 
