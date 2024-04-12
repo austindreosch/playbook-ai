@@ -40,20 +40,18 @@ function HubBlock (){
 
 
       {user ? (
-        <div className='inline-block'>
-          <div className='p-2 px-4 inline-block bg-myblue text-white rounded-md mx-1 my-auto'>
+        <div className=' flex justify-center items-center'>
+          <div className='p-2 px-4 inline-block bg-myblue text-white rounded-md mx-1 '>
             <Link className={`${logoFont.className} font-bold`} href="/import">Import</Link>
           </div>
-          {/* <div className='p-2 px-4 inline-block bg-myorange text-black rounded-md mx-1 my-auto'>
+          <div className='p-2 px-4 inline-block bg-myorange text-black rounded-md mx-1 my-auto'>
             <Link className={`${logoFont.className}`} href="#">Rankings</Link>
           </div>
           <div className='p-2 px-4 inline-block bg-myorange text-black rounded-md mx-1 my-auto'>
             <Link className={`${logoFont.className}`} href="#">Settings</Link>
-          </div> */}
-
+          </div>
           
           <UpdateStatsButton/>
-  
         </div>
       )
       : () => null}
