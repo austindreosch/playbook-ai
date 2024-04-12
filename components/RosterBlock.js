@@ -11,7 +11,7 @@ import RosterBlockPlayerRow from './RosterBlockPlayerRow';
 function RosterBlock() {
     const { user, isLoading } = useUser();
     const [leaguesData, setLeaguesData] = useState([]);
-    const [selectedLeagueIndex, setSelectedLeagueIndex] = useState(0); // Defaults to the first league
+    const [selectedLeagueIndex, setSelectedLeagueIndex] = useState(0); // Defaults to the first imported league
 
     const [noLeagues, setNoLeagues] = useState(false);
 
@@ -20,7 +20,7 @@ function RosterBlock() {
         if (!user) return;
 
         try {
-          const response = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`);
+          const response = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`); //sport will later be dynamic
           if (response.ok) {
             const leagues = await response.json();
             setLeaguesData(leagues);
@@ -41,26 +41,23 @@ function RosterBlock() {
             <Link className={`font-bold`} href="/import">No leagues found. Please import league to continue.</Link>
         </div>
     }
-
     if (isLoading) {
         return <div className='my-auto pt-32'>
-        <ThreeCircles
-            height="200"
-            width="200"
-            color="#42a9e0"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="three-circles-rotating"
-            outerCircleColor=""
-            innerCircleColor=""
-            middleCircleColor=""
-        />
-    </div>
+            <ThreeCircles
+                height="200"
+                width="200"
+                color="#42a9e0"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="three-circles-rotating"
+                outerCircleColor=""
+                innerCircleColor=""
+                middleCircleColor=""
+            />
+        </div>
     }
-    if (!user) {
-        return <div>Please log in to view your roster.</div>;
-    }
+    if (!user) return;
 
     const selectedLeague = leaguesData[selectedLeagueIndex];
     const selectedTeam = selectedLeague ? selectedLeague.teams.find(team => team.teamId === selectedLeague.userTeamId) : null;

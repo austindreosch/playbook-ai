@@ -56,7 +56,6 @@ export function RankDonut({score, age, dynastyRank}) {
       height: '100%', // or desired height
     }
   };
-  
   return (
     <div className='w-full h-full flex align-middle justify-center relative'> {/* Add 'relative' here */}
       <Doughnut data={data} options={options}/>

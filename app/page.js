@@ -9,14 +9,12 @@ import { ThreeCircles } from 'react-loader-spinner';
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
 
-import { Figtree, Lexend_Deca } from 'next/font/google';
+import { Bai_Jamjuree, Do_Hyeon, Figtree, Hammersmith_One, Homenaje, Lexend_Deca, Major_Mono_Display, Titillium_Web } from 'next/font/google';
 const oldFont = Lexend_Deca({
   weight: '400',
   subsets: ['latin'],
   display: 'swap',
 })
-
-import { Bai_Jamjuree, Do_Hyeon, Hammersmith_One, Homenaje, Major_Mono_Display, Titillium_Web } from 'next/font/google';
 const logoFont = Titillium_Web({
   weight: '600',
   subsets: ['latin'],
@@ -27,8 +25,6 @@ const aiFont = Hammersmith_One({
   subsets: ['latin'],
   display: 'swap',
 })
-
-
 
 export default function Home() {
 

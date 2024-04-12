@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable @next/next/no-img-element */
 
 import { faCalendarDays, faClock, faFlag, faForward, faSackDollar, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +13,7 @@ import Image from 'next/image';
 ----------------------------------------------------------- */
 
 function getColorForStat(value, average) {
-    // Define weights (ranges) inside the function
+    // Define weight/ranges) inside the function
     const eliteRange = average * 1.10; // Well above average
     const goodRange = average * 1.02; // Slightly above average
     const poorRange = average * 0.85; // Slightly below average
@@ -99,7 +100,6 @@ function RosterBlockPlayerRow({ player, index }) {
 
                 <div className="col-span-7 flex items-center text-xs gap-[2px] overflow-hidden">
                     <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.fgPct), 49.1)}`}>{player.stats.fgPct}</span>
-
                     <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.fg3PtMadePerGame, 1.63)}`}>{player.stats.fg3PtMadePerGame}</span>
                     {/* <span className={`border border-gray-100 rounded-sm flex-1 py-[5px] text-center ${getColorForStat(player.stats.TPM, 1.63)}`}>{player.stats.TPM}</span> */}
                     <span className={`border border-gray-100 rounded-sm flex-1 text-2xs py-[5px] text-center ${getColorForStat(parseFloat(player.stats.ftPct), 80.0)}`}>{player.stats.ftPct}</span>

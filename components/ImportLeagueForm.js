@@ -33,6 +33,7 @@ export default function ImportLeagueForm({ userId }) {
     try {
       const leagueInfo = await getLeagueDataForImport(providerLeagueId, leagueName, selectedProvider);
       setLeagueData(leagueInfo);
+      const teamCount = leagueInfo.leagueTeamCount;
       setLeagueTeamCount(teamCount);
       const teams = leagueInfo.teams;
       const teamNames = [];
