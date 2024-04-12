@@ -12,20 +12,13 @@ export default async function handler(req, res) {
     try {
         await client.connect();
 
-        // 1. Fetch the NBA stats and process it.
+        /* -----------------------------------------------------------
+            1. Fetch all NBA stats and grab the needed datapoints.
+        ----------------------------------------------------------- */
         const apiKeyToken = process.env.NEXT_PUBLIC_MYSPORTSFEEDS_API_KEY; 
-        const password = "MYSPORTSFEEDS";
+        const password = "MYSPORTSFEEDS"; //Not a secret, just a default password
         const credentials = Buffer.from(`${apiKeyToken}:${password}`).toString('base64');
-
-        // const season = '2022-2023-regular';
-        // const params = new URLSearchParams({
-        //     'date': '20230821',
-        //     'force': 'true',
-        // });
-        // const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/${season}/player_stats_totals.json`;
-
-        const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/2022-2023-regular/player_stats_totals.json`
-
+        const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/2023-2024-regular/player_stats_totals.json`
         const fetchOptions = {
           method: 'GET',
           headers: {
@@ -36,7 +29,7 @@ export default async function handler(req, res) {
 
         const response = await fetch(url, fetchOptions);
         const data = await response.json();
-        console.log('HERE IS THE DATA', data);
+        // console.log('Stats API Data:', data);
         const players = data.playerStatsTotals.map((playerStats) => ({
             info: {
             id: playerStats.player.id,
@@ -77,11 +70,11 @@ export default async function handler(req, res) {
             }
         }));
 
-
-        // 2. Fetch and process the dynasty rankings and add them to the processed player stats.
+        /* ------------------------------------------------------------------------
+        * 2. Process score rankings and add to processed player stats.
+        --------------------------------------------------------------------------- */
         const dynastyResponse = await fetch('https://drive.google.com/uc?export=download&id=1rYRWEIX7sdHkcIQ2CfhhZc8TtnGqcx0z');
         const dynastyCsv = await dynastyResponse.text();
-
         const dynastyRankings = Papa.parse(dynastyCsv, {
             header: false,
             skipEmptyLines: true
@@ -92,23 +85,17 @@ export default async function handler(req, res) {
             rankingMap.set(name, parseInt(rank, 10));
         });
 
-        console.log("Players before adding dynasty rank:", players.map(p => p.info.fullName));
-
         const playersWithRanking = players.map(player => {
             const fullName = player.info.fullName;
             if (rankingMap.has(fullName)) {
                 player.info.dynastyRank = rankingMap.get(fullName);
-                console.log(`Matched player: ${fullName} with dynasty rank: ${player.info.dynastyRank}`);
             }
             return player;
         });
 
-        console.log("Players after adding dynasty rank:", playersWithRanking.map(p => ({
-            name: p.info.fullName,
-            dynastyRank: p.info.dynastyRank
-        })));
-
-        // 3. Update the MongoDB database with the combined data.
+        /* -----------------------------------------------------------
+            3. Update the MongoDB database with the combined data.
+        ----------------------------------------------------------- */
         const playbookDB = client.db('playbook');
         const statsCollection = playbookDB.collection('stats');
 
@@ -118,7 +105,6 @@ export default async function handler(req, res) {
             { upsert: true }
         );
 
-        // 4. Send the response.
         res.status(200).json(data);
 
     } catch (error) {

@@ -2,8 +2,6 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { Fira, Fira_Sans, Inter, Libre_Franklin } from 'next/font/google';
 import './globals.css';
 
-import FooterBlock from "/components/FooterBlock";
-
 import NavBar from '../components/NavBar';
 
 const inter = Inter({ subsets: ['latin'], weight: '400', display: 'swap' })

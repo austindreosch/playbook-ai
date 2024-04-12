@@ -2,23 +2,15 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import React from 'react';
 
 function UpdateStatsButton() {
-    const { user } = useUser();
-
-  // Replace this with your admin user's sub value
+  const { user } = useUser();
   const adminSub = process.env.NEXT_PUBLIC_AUTH0_ADMIN_ID;
   const isAdmin = user && user.sub === adminSub;
-
-  console.log('user:', user);
-  console.log('isAdmin:', isAdmin);
-    console.log('adminSub:', adminSub);
 
   const handleUpdateClick = async () => {
     try {
       const response = await fetch('/api/fetch/nba', { method: 'GET' });
-      console.log('Response Status:', response.status);
-        console.log('Response Body:', await response.text());
-
-
+      // console.log('Response Status:', response.status);
+      // console.log('Response Body:', await response.text());
       if (response.ok) {
         alert('Database successfully updated with fresh NBA stats!');
       } else {

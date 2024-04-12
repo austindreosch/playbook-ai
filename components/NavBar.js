@@ -71,6 +71,7 @@ function NavBar (){
 
 
 
+
                                 </>
                             ) : (
                                 <div className='p-3 px-6 bg-myblue text-white font-bold tracking rounded-md mx-1'>

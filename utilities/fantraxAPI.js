@@ -33,6 +33,13 @@
 
 import axios from 'axios';
 
+//----------------------------------------------------------------
+// COLLECTION OF METHODS FOR FETCHING LEAGUE DATA FROM FANTRAX API
+//----------------------------------------------------------------
+
+/* -------------------------------------------------------------------------------------------------------------------------
+  Grab all the data for a league, including the league name, league settings, the team names, and the players on each team
+------------------------------------------------------------------------------------------------------------------------- */
 export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId, userAuthId, leagueName, leagueProvider, leagueFormat, leagueSport, leagueScoring ) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${providerLeagueId}`;
   const playerDataURL = "https://www.fantrax.com/fxea/general/getPlayerIds?sport=NBA";
@@ -43,7 +50,7 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
       axios.get(playerDataURL)
     ]);
 
-    const rostersData = rostersResponse.data.rosters; // Adjusted to access the 'rosters' property
+    const rostersData = rostersResponse.data.rosters;
     const playerDataMap = playerDataResponse.data;
 
     const leagueData = {
@@ -60,7 +67,6 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
       teams: []
     };
 
-    // Assuming getLeagueInfo function returns the league information correctly
     leagueData.leagueInfo = await getLeagueInfo(providerLeagueId);
 
     for (let teamId in rostersData) {
@@ -68,7 +74,6 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
         const teamData = rostersData[teamId];
         const players = [];
 
-        // Check if rosterItems is defined and is an array
         if (Array.isArray(teamData.rosterItems)) {
           teamData.rosterItems.forEach(item => {
             const playerData = playerDataMap[item.id];
@@ -101,12 +106,9 @@ export const getLeagueData = async (uniqueLeagueId, providerLeagueId, userTeamId
   }
 };
 
-
-
-
-
-
-// get roster size and active roster size, scoring system, and later on get matchups etc
+/* ---------------------------------------------------------------------------------------------------------
+  Get roster size and active roster size, scoring system, and team composition rules for a given league
+---------------------------------------------------------------------------------------------------------- */
 export const getLeagueInfo = async (leagueId) => {
   const leagueInfoUrl = `https://www.fantrax.com/fxea/general/getLeagueInfo?leagueId=${leagueId}`
   
@@ -132,8 +134,9 @@ export const getLeagueInfo = async (leagueId) => {
   }
 }
 
-
-// helper function to generate position array for getLeagueInfo
+/* -------------------------------------------------------------------------------------
+  Helper function to generate team composition rules array for getLeagueInfo() method
+----------------------------------------------------------------------------------------- */
 const generatePositionArray = (positionConstraints) => {
   const positionArray = [];
   
@@ -149,8 +152,9 @@ const generatePositionArray = (positionConstraints) => {
 };
 
 
-// only needs the leagueId and the leagueName then calls the fantrax api and gets a list of the team names and their teamIds
-
+/* -------------------------------------------------------------------------------------------------------------------
+  Access Fantrax API to get the league data for import page, using the leagueId and leagueName input in the form
+-------------------------------------------------------------------------------------------------------------------- */
 export const getLeagueDataForImport = async (leagueId, leagueName, provider) => {
   const retrieveRostersURL = `https://www.fantrax.com/fxea/general/getTeamRosters?leagueId=${leagueId}`;
 

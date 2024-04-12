@@ -23,26 +23,18 @@ function RosterBlock() {
           const response = await fetch(`/api/load/leagues?userAuthId=${user.sub}&sport=NBA`);
           if (response.ok) {
             const leagues = await response.json();
-            console.log ('LEAGUES RES:', leagues)
-            // if (leagues.length === 0){
-            //     console.log("ZERO LEAGUES ");
-            // }
             setLeaguesData(leagues);
           } else {
-            console.log("ZERO LEAGUES OR ERROR ");
             setNoLeagues(true);
-            console.error('Failed to fetch leagues data');
+            console.error('No league data found for the user.');
           }
         } catch (error) {
-          
           console.error('Error fetching leagues data:', error);
         }
       };
 
       fetchLeaguesData();
     }, [user]);
-
-
 
     if (!isLoading && noLeagues === true){
         return <div className='p-2 px-4 inline-block bg-myblue text-white rounded-md mx-1 my-auto mt-48'>
@@ -66,7 +58,6 @@ function RosterBlock() {
         />
     </div>
     }
-
     if (!user) {
         return <div>Please log in to view your roster.</div>;
     }
@@ -74,7 +65,6 @@ function RosterBlock() {
     const selectedLeague = leaguesData[selectedLeagueIndex];
     const selectedTeam = selectedLeague ? selectedLeague.teams.find(team => team.teamId === selectedLeague.userTeamId) : null;
     
-
     if (!selectedLeague) {
         return <div className='my-auto pt-32'>
             <ThreeCircles
@@ -92,13 +82,9 @@ function RosterBlock() {
         </div>
     }
 
-    console.log('SELECTED LEAGUE', selectedLeague);
-
-
-    
     return (
         <div className="bg-white rounded-md shadow-md overflow-y-scroll hide-scrollbar p-4 mx-1 h-full">
-            {/* Component Header */}
+            {/* COMPONENT HEADER */}
             <div className='flex items-center py-2'> 
                 <h2 className="text-2xl leading-9 font-bold text-gray-900 mb-1 mr-4">{selectedTeam.teamName}</h2>
                 <div className="flex flex-col justify-center">
@@ -121,11 +107,7 @@ function RosterBlock() {
                     </div>
                 </div>
             </div>
-
-
-
-    
-            {/* Table Head */}
+            {/* TABLE HEADER */}
             <div className="bg-black text-white text-xs py-[3px] rounded-sm grid grid-cols-[3fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr] mb-1 pr-1">
                 <div className="col-span-3 font-bold pl-1 flex items-center justify-start">RANK</div>
                 <div className="col-span-7 grid grid-cols-9 font-bold">
@@ -140,13 +122,12 @@ function RosterBlock() {
                     <span className="text-center p-1">TO</span>
                 </div>
             </div>
-                
+            {/* RENDER PLAYER ROWS */}    
             {selectedTeam && selectedTeam.players
                 .sort((a, b) => b.playbookScore - a.playbookScore)
                 .map((player, playerIndex) => (
                     <RosterBlockPlayerRow key={playerIndex} player={player} index={playerIndex} />
             ))}
-
         </div>
     );
     

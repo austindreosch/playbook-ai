@@ -3,13 +3,11 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
-
-import { Oxanium, Sen } from 'next/font/google';
+// import { Oxanium, Sen } from 'next/font/google';
+// import DetailBlock from "../components/DetailBlock";
 import { ThreeCircles } from 'react-loader-spinner';
-import DetailBlock from "../components/DetailBlock";
 import HubBlock from "../components/HubBlock";
 import RosterBlock from "../components/RosterBlock";
-import RosterBlockLeague from "../components/RosterBlockLeague";
 
 import { Figtree, Lexend_Deca } from 'next/font/google';
 const oldFont = Lexend_Deca({
@@ -29,8 +27,6 @@ const aiFont = Hammersmith_One({
   subsets: ['latin'],
   display: 'swap',
 })
-
-
 
 
 
@@ -71,9 +67,6 @@ export default function Home() {
         <div className="lg:col-span-12 col-span-full max-w-[900px] m-auto">
           <RosterBlock />
         </div>
-        {/* <div className="lg:col-span-6 col-span-full max-w-[900px] m-auto">
-          <RosterBlockLeague />
-        </div> */}
       </div>
     </div>
   ));
