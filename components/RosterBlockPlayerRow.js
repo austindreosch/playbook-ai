@@ -13,10 +13,10 @@ import Image from 'next/image';
 
 function getColorForStat(value, average) {
     // Define weights (ranges) inside the function
-    const eliteRange = average * 1.10; // 20% better than average
-    const goodRange = average * 1.02; // 10% better than average
-    const poorRange = average * 0.85; // 10% worse than average
-    const badRange = average * 0.7; // 20% worse than average
+    const eliteRange = average * 1.10; // Well above average
+    const goodRange = average * 1.02; // Slightly above average
+    const poorRange = average * 0.85; // Slightly below average
+    const badRange = average * 0.7; // Well below average
 
     if (value >= eliteRange) return 'bg-green-300';
     if (value >= goodRange) return 'bg-green-100';
@@ -24,6 +24,8 @@ function getColorForStat(value, average) {
     if (value >= poorRange) return 'bg-red-100';
     return 'bg-red-300';
 } 
+
+//For turnovers, lower is better:
 function getColorForTO(value, average) {
     const eliteRange = average * 0.8;
     const goodRange = average * 0.9;
@@ -45,9 +47,9 @@ function RosterBlockPlayerRow({ player, index }) {
     const [selectedFaith, setSelectedFaith] = useState('Neutral');
     const [selectedSmart, setSelectedInjuryProne] = useState('Neutral');
 
-    /* -----------------------------------------------------------
-        METHODS FOR COLLAPSIBLE DISPLAY
-    ----------------------------------------------------------- */
+    /* ----------------------
+        HELPER FUNCTIONS
+    ------------------------ */
 
     const toggleCollapse = () => {
         setCollapsed(!collapsed);
@@ -75,7 +77,7 @@ function RosterBlockPlayerRow({ player, index }) {
         <div key={index} className="border border-gray-100 my-[.25rem] shadow-sm">
 
             {/* ---------------------
-                    UNCOLLAPSED ROW 
+                UNCOLLAPSED ROW 
             -----------------------*/}
             <div 
                 className="text-lg font-medium px-1 cursor-pointer grid grid-cols-[3fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr,1fr]" 
@@ -175,9 +177,6 @@ function RosterBlockPlayerRow({ player, index }) {
                                         alt="player pic" 
                                     />
                                 </div>
-                                {/* -----------------------
-                                    PLAYER FAVOR BUTTONS 
-                                ---------------------------*/}
                                 <div className='col-span-12 flex pr-1 mr-2 '>
                                     <div className=' grid grid-flow-row align-center my-auto w-full'>
                                         {renderButtonGroup(['Favor', 'Neutral', 'Dislike'], selectedFavor, setSelectedFavor)}
@@ -188,7 +187,7 @@ function RosterBlockPlayerRow({ player, index }) {
                             </div>
                             <div className='row-span-2  text-center rounded-md'>
                             {/* -----------------------------------------------
-                                STATISTICS SPAN SELECTION (NOT IMPLEMENTED) 
+                                   ACTIVE TAB SELECTION (NOT IMPLEMENTED) 
                             --------------------------------------------------*/}
                             <div className='flex justify-center middle-align bg-gray-100 rounded-md border border-gray-300 rounded-b-md h-[102%]'>
                                 <div className="overflow-hidden rounded-md my-auto">
