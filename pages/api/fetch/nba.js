@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         const apiKeyToken = process.env.NEXT_PUBLIC_MYSPORTSFEEDS_API_KEY; 
         const password = "MYSPORTSFEEDS"; //Not a secret, required default password
         const credentials = Buffer.from(`${apiKeyToken}:${password}`).toString('base64');
-        const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/2023-2024-regular/player_stats_totals.json`
+        const url = `https://api.mysportsfeeds.com/v2.1/pull/nba/2024-2025-regular/player_stats_totals.json`
         const fetchOptions = {
           method: 'GET',
           headers: {

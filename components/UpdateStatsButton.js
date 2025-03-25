@@ -1,6 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import React from 'react';
 
+
 function UpdateStatsButton() {
   const { user } = useUser();
   const adminSub = process.env.NEXT_PUBLIC_AUTH0_ADMIN_ID;
@@ -9,8 +10,12 @@ function UpdateStatsButton() {
   const handleUpdateClick = async () => {
     try {
       const response = await fetch('/api/fetch/nba', { method: 'GET' });
-      // console.log('Response Status:', response.status);
-      // console.log('Response Body:', await response.text());
+
+      const json = await response.json();
+      console.log('Response Status:', response.status);
+      console.log('📦 Response:', json);
+      console.dir(json, { depth: null });
+
       if (response.ok) {
         alert('Database successfully updated with fresh NBA stats!');
       } else {
@@ -37,3 +42,4 @@ function UpdateStatsButton() {
 }
 
 export default UpdateStatsButton;
+

@@ -55,6 +55,7 @@ function NavBar (){
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
                             <Link href="/landing" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${inter.className}`}>Home</Link>
+                            <Link href="/rankings" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${inter.className}`}>Rankings</Link>
                             <Link href="/about" className={`text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium ${inter.className}`}>Feature Overview</Link>
 
                             {user ? (
