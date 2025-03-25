@@ -3,7 +3,7 @@
 import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import UpdateStatsButton from './UpdateStatsButton';
+// import UpdateStatsButton from './AdminButtons/UpdateNBAStatsButton';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
@@ -51,7 +51,7 @@ function HubBlock (){
             <Link className={`${logoFont.className}`} href="#">Settings</Link>
           </div>
           
-          <UpdateStatsButton/>
+          {/* <UpdateStatsButton/> */}
         </div>
       )
       : () => null}

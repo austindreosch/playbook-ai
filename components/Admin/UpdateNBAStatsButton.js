@@ -2,14 +2,14 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import React from 'react';
 
 
-function UpdateStatsButton() {
+function UpdateNBAStatsButton() {
   const { user } = useUser();
   const adminSub = process.env.NEXT_PUBLIC_AUTH0_ADMIN_ID;
   const isAdmin = user && user.sub === adminSub;
 
   const handleUpdateClick = async () => {
     try {
-      const response = await fetch('/api/fetch/nba', { method: 'GET' });
+      const response = await fetch('/api/fetch/NBA/NBAStats', { method: 'GET' });
 
       const json = await response.json();
       console.log('Response Status:', response.status);
@@ -41,5 +41,5 @@ function UpdateStatsButton() {
   ) : null;
 }
 
-export default UpdateStatsButton;
+export default UpdateNBAStatsButton;
 
