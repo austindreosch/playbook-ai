@@ -1,38 +1,68 @@
-import React from 'react';
+'use client';
 
-const PlayerRow = ({ rank, name, position, team }) => (
-    <div className="grid grid-cols-4 gap-4 p-4 border-b text-sm md:text-base">
-        <div>{rank}</div>
-        <div>{name}</div>
-        <div>{position}</div>
-        <div>{team}</div>
-    </div>
+import React, { useEffect, useState } from 'react';
+
+const PlayerRow = ({ rank, name, position, team, stats }) => (
+  <div className="grid grid-cols-13 gap-2 p-2 border-b text-xs md:text-sm text-center">
+    <div>{rank}</div>
+    <div className="text-left">{name}</div>
+    <div>{position}</div>
+    <div>{team}</div>
+    <div>{stats?.ptsPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.rebPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.astPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.stlPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.blkPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.fg3PtMadePerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.toPerGame?.toFixed(1) || '–'}</div>
+    <div>{stats?.fgPct?.toFixed(1) || '–'}</div>
+    <div>{stats?.ftPct?.toFixed(1) || '–'}</div>
+  </div>
 );
 
 export default function RankingsPage() {
-    const rankings = [
-        { rank: 1, name: 'Christian McCaffrey', position: 'RB', team: 'SF' },
-        { rank: 2, name: 'Justin Jefferson', position: 'WR', team: 'MIN' },
-        { rank: 3, name: 'Ja’Marr Chase', position: 'WR', team: 'CIN' },
-        { rank: 4, name: 'Patrick Mahomes', position: 'QB', team: 'KC' },
-        { rank: 5, name: 'Bijan Robinson', position: 'RB', team: 'ATL' },
-        // add more players...
-    ];
+  const [rankings, setRankings] = useState([]);
 
-    return (
-        <div className="p-6 max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6 text-center">Fantasy Rankings</h2>
+  useEffect(() => {
+    async function fetchRankings() {
+      const res = await fetch('/api/fetch/NBA/GetNBADynastyRankings');
+      const json = await res.json();
+      setRankings(json.rankings || []);
+    }
 
-            <div className="grid grid-cols-4 gap-4 font-semibold border-b pb-2 mb-2 text-sm md:text-base">
-                <div>Rank</div>
-                <div>Player</div>
-                <div>Pos</div>
-                <div>Team</div>
-            </div>
+    fetchRankings();
+  }, []);
 
-            {rankings.map((player) => (
-                <PlayerRow key={player.rank} {...player} />
-            ))}
-        </div>
-    );
+  return (
+    <div className="p-4 max-w-7xl mx-auto overflow-x-auto">
+      <h2 className="text-2xl font-bold mb-4 text-center">Fantasy 9-Cat Rankings</h2>
+
+      <div className="grid grid-cols-13 gap-2 font-semibold border-b pb-2 mb-2 text-xs md:text-sm text-center">
+        <div>#</div>
+        <div className="text-left">Player</div>
+        <div>Pos</div>
+        <div>Team</div>
+        <div>PTS</div>
+        <div>REB</div>
+        <div>AST</div>
+        <div>STL</div>
+        <div>BLK</div>
+        <div>3PM</div>
+        <div>TO</div>
+        <div>FG%</div>
+        <div>FT%</div>
+      </div>
+
+      {rankings.map((player, i) => (
+        <PlayerRow
+          key={i}
+          rank={player.rank}
+          name={player.name}
+          position={player.position}
+          team={player.team}
+          stats={player.stats}
+        />
+      ))}
+    </div>
+  );
 }

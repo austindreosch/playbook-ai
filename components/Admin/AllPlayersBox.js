@@ -21,7 +21,7 @@ export default function AllPlayersBox() {
       <ul className="space-y-1 text-sm text-gray-700">
         {players.map((p, i) => (
           <li key={i}>
-            {p.info.fullName} <span className="text-gray-400">({p.info.team}, {p.info.pos})</span> - ID: {p.info.id}
+            {p.info.fullName} <span className="text-gray-400">({p.info.team}, {p.info.pos})</span> - ID: {p.info.id} - {p.info.pos}
           </li>
         ))}
       </ul>
