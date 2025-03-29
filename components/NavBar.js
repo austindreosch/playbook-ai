@@ -67,7 +67,7 @@ function NavBar (){
                                         </div>
                                     </div>
                                     <div className='p-3 px-1 inline-block text-black rounded-md'>
-                                        <Link href="/api/auth/logout"><FontAwesomeIcon icon={faRightFromBracket} /></Link>
+                                        <Link href="/api/auth/logout"><FontAwesomeIcon icon={faRightFromBracket} /> </Link>
                                     </div>
 
 
